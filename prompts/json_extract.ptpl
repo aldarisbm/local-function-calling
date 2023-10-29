@@ -1,0 +1,148 @@
+[INST]
+**Story**:
+"In a galaxy named Trixa, Captain Elara of the spaceship 'Stellar Drift' encountered a strange anomaly. The ship's AI system, 'Vox', detected a temporal disturbance emanating from planet Zorax. Elara, who is 45 years old, decided to investigate despite the warnings. Vox estimated a 70% chance of danger."
+**Instruction**:
+Based on the provided story, extract relevant entities and fill in the following JSON schema. If you can't infer a value, leave it null
+**JSON Schema**:
+{
+  "galaxy": "string",
+  "captain_name": "string",
+  "ship_name": "string",
+  "AI_name": "string",
+  "detected_issue": "string",
+  "planet": "string",
+  "danger_percentage": "number",
+  "wife_name: "string"
+}
+**Result**:
+Let's extract the relevant information and fill in the JSON schema, I will not use placeholders such as "string" or "integer", I will fill it out to the best of my knowledge
+[/INST]
+{
+  "galaxy": "Trixa",
+  "captain_name": "Elara",
+  "ship_name": "Stellar Drift",
+  "AI_name": "Vox",
+  "detected_issue": "temporal disturbance",
+  "planet": "Zorax",
+  "danger_percentage": 70,
+  "wife_name": null
+}
+**DONE**
+
+[INST]
+**Story**:
+In the bustling city of Harmony Springs, three unlikely companions came together to redefine friendship. Sarah, a 30-year-old artist with fiery auburn hair and freckles, hailed from a proud Irish heritage. Her vibrant personality was a stark contrast to Jake, a 45-year-old introverted computer programmer of Japanese descent, with salt-and-pepper hair and glasses that perpetually slipped down his nose. The trio was completed by Mia, a 25-year-old African American nurse with a warm smile and a heart of gold, who loved tending to the sick and injured. Despite their differences, these three friends forged an unbreakable bond, discovering that life's greatest adventures often emerge from the most unexpected connections.
+**Instruction**:
+Based on the provided story, extract relevant entities and fill in the following JSON schema. If you can't infer a value, leave it null
+**JSON Schema**:
+{
+  "characters": [
+    {
+      "name": "string",
+      "age": "number",
+      "ethnicity": "string",
+      "features": "string"
+    },
+    {
+      "name": "string",
+      "age": "number",
+      "ethnicity": "string",
+      "features": "string"
+    },
+    {
+      "name": "string",
+      "age": "number",
+      "ethnicity": "string",
+      "features": "string"
+    }
+  ]
+}
+**Result**:
+Let's extract the relevant information and fill in the JSON schema, I will not use placeholders such as "string" or "integer", I will fill it out to the best of my knowledge
+[/INST]
+{
+  "characters": [
+    {
+      "name": "Sarah",
+      "age": "30",
+      "ethnicity": "Irish",
+      "features": "fiery auburn hair, freckles"
+    },
+    {
+      "name": "Jake",
+      "age": "45",
+      "ethnicity": "Japanese",
+      "features": "salt-and-pepper hair, glasses"
+    },
+    {
+      "name": "Mia",
+      "age": "25",
+      "ethnicity": "African American",
+      "features": "warm smile, heart of gold"
+    }
+  ]
+}
+**DONE**
+
+[INST]
+**Story**:
+"Jessica didn't mind waiting. She would rather wait for a bus than walk the two miles down the road to her work, although that was due to her laziness and hatred of physical exercise. She would rather wait till she had good news before she dealt with bad news. She would rather wait to grow up than rush her way through life. She was always the childish one out of her friends and enjoying the freedom that came along with being young. She would never complain about life and was always thankful for every second she had. The first time Jessica truly cried was when her father died in a car accident when she was twelve. Her sister, Chloe, took a different path in life, she was the rebel child who got expelled from school and pregnant at sixteen. The sisters had completely opposite lifestyles but together they got through everything that challenged them. They lived in a two bedroomed terrace house, that had a leaky roof and bars over the windows, they couldn't complain though, it was cheap. Eventually they would be able to afford a nicer house with a garden, but for now this was the best they could get. They would have to wait until life allowed them to upgrade. Jessica was used to waiting for things even if they never came. However right now she couldn't stand waiting. They told her to wait fifteen days for the results to come and on Monday she would get a phone call. It was Monday. She was at home by the phone and it still hadn't rang. The last fifteen days had been torture, her mind never rested she was constantly thinking about the results and what would happen after the waiting was finally over. Would everything go back to normal? Could her life ever go back to normal after all of this? \"Jess I'm heading out, do you want anything from the shop?\" asked Chloe as she entered the room with her six year old clinging to her hand. \"What? Oh, no thank you, I'm fine\" She replied looking back to the phone willing it to ring. Her sister sighed. \"Okay, Have a good time watching the phone\" she laughed fastening her coat. Jessica simply clutched the phone tightly in her hands. \"Jess are you alright?\" Chloe questioned, \"What?\" \"Who are you waiting to call you?\" \"No one\" was Jessica's quick reply, she placed the phone on the sofa and leant back in her seat casually. Jessica hadn't told anyone about the call and she wanted to keep it like that until she knew what it was she was going to tell them. \"You'd better go before it starts to rain again. You don't want to be walking in a downpour\" she added glancing out the window at the grey sky. \"Okay, see you in a bit\". Jessica had been acting strangely for a whole month now. At first Chloe just assumed it was her time of the month, she always got a bit depressed and moped about the house when her hormones took over but this was different, she was stressed and isolating herself from everyone. \"I love you\" she said as a last attempt to communicate with Jessica, who just lifted her head and gave her a small smile that didn't reach her eyes. With her thoughts troubled she left. The house was empty, the silence emphasising the fact the phone was yet to ring. Jessica looked at the clock biting her lip with worry. It was three o'clock, they should have rung by now. Does this mean its bad news? Everyone always said no news was good news. Jessica wondered whether she should call them. Maybe they'd forgotten about her. What if they tried to ring while she was stuck on hold for half an hour? With a sigh she stood up from the sofa placing the phone in her seat and walked into the kitchen to make some food. The fridge was empty with only a small chunk of cheese and a tub of left-over pasta that her sister had cooked yesterday. Chloe always made too much food, she didn't understand the idea of portions. It was the main reason there was never any food in the house. Although the mountain of leftovers that usually filled the fridge came in handy when Jessica wanted a snack. Continuing her search in the cupboards she found some bread and a tin of beans. It was breakfast food but she didn't really care. It was funny how certain food was socially correct to only eat in the morning. Like cereal. Why was it wrong to eat cereal after eleven o'clock? She liked cereal. When she was younger she used to eat cereal for breakfast, tea and dinner. It was actually quite a healthy meal and would keep her going all day. Jessica decided to look in the cupboard for some coco pops or cornflakes, suddenly craving the childish snack. Just as her hand clutched the box, hidden behind the potatoes, she heard a high pitched ring coming from the other room. She shot up from her bent over position on the floor and ran to the phone answering it instantly with a quick \"Hello\". \"Hey babe, what are you doing today?\" came a familiar male voice. \"Oh, Hi Peter. Listen, I can't talk right now. I'm waiting for a call\" Peter was her boyfriend, they had been dating now for five months, which was the longest relationship Jessica had ever had. Not because she liked to sleep around, but because she didn't think relationships were fun. She didn't have much faith in men, the only man she trusted was her dad and he was no longer there to protect her. Peter was a great guy, they met at a New Year's Eve party and so far everything was going great. \"A call from who?\" he asked, \"No one you'd know. I have to go.\" \"Oh. Well I guess I'll call you later\" Jessica knew she had been pushing him away for the last few weeks. She had been making excuses and canceling their plans, it was obvious Peter was starting to get suspicious. \"No! I'll call you,\" she told him, anxious to put the phone down and get away from this conversation. \"Alright. We're okay aren't we?\" came his reply and Jessica sighed hearing the worry in his voice. She didn't want to make him feel like she didn't like him anymore, but it was just the easiest thing. As soon as she had this phone call everything could get back on track, she'd make more of an effort with Peter. \"Yeah, we're fine. I have to go. Talk to you later.\" She said before ending the call, hearing a cut off \"Bye babe\" from Peter. Jessica looked at the phone. Did she miss the call? What if they rang and the phone was busy? Would they call back? This one phone call could change everything and Jessica was petrified that it would be bad news. She sat in a kind of trance with only the phone in her vision as her mind went wild over the possibilities the call could have. It was strange how normal the day seemed, everyone else was going about their lives without a care in the world and here she was sat on the sofa reevaluating her life. She hadn't really done anything of importance. No awards or medals hung on her walls. No masterpieces hidden away in her attic. She had never changed anyone's life with a pep talk or inspiring speech. She had less than two hundred friends on Facebook. She was stuck in a dead end job with a boss who was on a constant power trip. She had never even left her home town, she hadn't explored the world or made mistakes that defined the person she was."
+**Instruction**:
+Based on the provided story, extract relevant entities and fill in the following JSON schema. If you can't infer a value, do not include it
+**JSON Schema**:
+{
+  "entities": {
+    "characters": [
+      {
+        "type_of_character": "string",
+        "attributes": {
+          "name": "string",
+          "age": "integer",
+          "mood": "string",
+          "occupation": "string",
+          "hobbies": "list"
+        },
+        "relationships": {
+          "sibling": "string",
+          "partner": "string"
+        }
+      }
+    ],
+    "locations": [
+      {
+        "type_of_location": "string",
+        "features": {
+          "size": "string",
+          "amenities": "list",
+          "condition": "string"
+        }
+      }
+    ],
+    "items": [
+      {
+        "type": "string",  // e.g., "electronic", "consumable"
+        "functions": {
+          "call": "boolean",
+          "text": "boolean",
+          "internet": "boolean"
+        },
+        "varieties": {
+          "meal_type": "string",
+          "ingredients": "list"
+        }
+      }
+    ],
+    "events": [
+      {
+        "participants": ["string"],
+        "outcome": {
+          "result": "string",
+          "impact": "string"
+        }
+      }
+    ]
+  }
+}
+**Result**:
+Let's extract the relevant information and fill in the JSON schema, I will not use placeholders such as "string" or "integer", I will fill it out to the best of my knowledge
+[/INST]

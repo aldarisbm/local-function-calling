@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "oss-home-assistant"
+version = "0.1.0"
+description = ""
+authors = ["Jose Berrio <aldarisbm@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-dotenv = "^1.0.0"
+langchain = "^0.0.325"
+llama-cpp-python = "^0.2.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

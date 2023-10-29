@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "oss-home-assistant"
+name = "local-function-calling"
 version = "0.1.0"
 description = ""
 authors = ["Jose Berrio <aldarisbm@gmail.com>"]

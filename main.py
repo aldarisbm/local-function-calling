@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -9,13 +10,18 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import LlamaCpp
 
 load_dotenv()
-logging.basicConfig(level=logging.DEBUG)
+
+logging.basicConfig(level=logging.DEBUG) if os.getenv('DEBUG', 'false').lower() == 'true' else None
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
-user_home_path = Path.home()
-model_name = f'{user_home_path}/Development/llama.cpp/models/7B/mistral-7b-openorca.Q8_0.gguf'
-grammar_file = "./grammars/json.gbnf"
+home_path = Path.home()
+model_folder = os.getenv('MODEL_FOLDER', 'Development/llama.cpp/models')
+model_param_ct = os.getenv('MODEL_PARAM_CT', '7B')
+model_name = os.getenv('MODEL_NAME', 'mistral-7b-openorca.Q8_0.gguf')
+grammar_file = os.getenv('GRAMMAR_PATH', './grammars/json.gbnf')
+
+model_name = f'{home_path}/{model_folder}/{model_param_ct}/{model_name}'
 
 llm: LlamaCpp = LlamaCpp(
     model_path=model_name,
@@ -32,7 +38,7 @@ llm: LlamaCpp = LlamaCpp(
     verbose=True,  # Verbose is required to pass to the callback manager
 )
 
-logging.debug(f'Loaded model: {model_name}')
+logging.debug(f'loaded model: {model_name}')
 
 environment: Environment = Environment(loader=FileSystemLoader("prompts/"))
 ptpl: Template = environment.get_template("functions.ptpl")

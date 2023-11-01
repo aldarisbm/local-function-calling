@@ -32,7 +32,7 @@ llm = LlamaCpp(
 
 print(f'Loaded model: {model_name}')
 
-with open("prompts/json_extract.ptpl") as prompt:
+with open("prompts/functions.ptpl") as prompt:
     pr = prompt.read()
     print(pr)
     json_result = llm(prompt=pr)

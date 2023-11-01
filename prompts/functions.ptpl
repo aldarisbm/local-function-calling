@@ -1,16 +1,16 @@
-<s>[INST] You're an orchestrator, you will be given function docstrings and you will choose which function will help give an
+<s>[INST] You're an orchestrator, you will be given function docstrings, and you will choose which function will help give an
 accurate answer to a given prompt.
 
 These are example docstrings, lead by the name of the function:
 get_weather:
-Returns the weather forecast for a given zipcode
+Returns the weather forecast for a given zipcode.
 Args:
     zipcode (str): the zipcode to lookup. eg: 07410, 63105, 33315
 Returns:
     str: The weather forecast. eg: Today's forecast is sunny, with a chance of rain after 6PM
 ------
 get_zipcode:
-Returns the zipcode for the given city and given state.
+Returns a zipcode for a given city and state.
 Args:
     city (str): City. eg: Rahway, Miami, Florissant
     state (str): State in two letter abbreviation. eg: FL, NJ, NY
@@ -18,7 +18,7 @@ Returns:
     str: The zipcode as a string. eg: 07105, 33140, 63104
 ------
 get_ord_for_char:
-Returns a character unicode point as an int
+Returns a unicode point as an int for given character.
 Args:
     character (str): The character to lookup. a, t, ø
 Returns:

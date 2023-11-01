@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from dotenv import load_dotenv
+from jinja2 import Environment, FileSystemLoader
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import LlamaCpp
@@ -32,11 +33,12 @@ llm = LlamaCpp(
 
 print(f'Loaded model: {model_name}')
 
-with open("prompts/functions.ptpl") as prompt:
-    pr = prompt.read()
-    print(pr)
-    json_result = llm(prompt=pr)
-    print(json_result)
-    res = json_result.strip()
-    res = json.loads(res)
-    print(res)
+environment = Environment(loader=FileSystemLoader("prompts/"))
+ptpl = environment.get_template("functions.ptpl")
+query = ptpl.render(query="What is the unicode point of the letter H")
+
+json_result = llm(prompt=query)
+print(json_result)
+res = json_result.strip()
+res = json.loads(res)
+print(res)

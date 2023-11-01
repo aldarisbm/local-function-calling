@@ -1,3 +1,5 @@
+{# prompts/functions.tptl #}
+
 <s>[INST] You're an orchestrator, you will be given function docstrings, and you will choose which function will help give an
 accurate answer to a given prompt.
 
@@ -52,5 +54,5 @@ What is the zipcode of Miami, OH?[/INST]
 }
 </s>
 [INST]
-What is the unicode point of the letter H
+{{ query }}
 [/INST]

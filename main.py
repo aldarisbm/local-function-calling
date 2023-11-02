@@ -9,6 +9,8 @@ from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import LlamaCpp
 
+from function_map import fns_map
+
 load_dotenv()
 
 logging.basicConfig(level=logging.DEBUG) if os.getenv('DEBUG', 'false').lower() == 'true' else None
@@ -49,4 +51,5 @@ print(json_result)
 res = json_result.strip()
 fns = json.loads(res)['functions_to_call']
 for fn in fns:
-    print(f"function that should be called is: {fn['function_name']}")
+    fn_name = fn['function_name']
+    print(fns_map[fn_name](fn['parameters']))

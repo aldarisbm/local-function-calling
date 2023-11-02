@@ -5,11 +5,19 @@ def get_weekday(day: int, month: int, year: int) -> str:
     """
     Returns the weekday for a given date.
     Args:
-        day (int): The day. eg: 1, 20, 19
-        month (int): The month. eg: 12, 10, 5
-        year (int): The year. eg: 2021, 1993, 1987
+        day (int): The day.
+        month (int): The month.
+        year (int): The year.
     Returns:
-        str: The weekday of the date provided. eg: Monday, Tuesday, Friday, Saturday
+        str: The weekday of the date provided.
+
+    Examples:
+        >>> get_weekday(1, 1, 2023)
+        'Sunday'
+        >>> get_weekday(20, 5, 2023)
+        'Saturday'
+        >>> get_weekday(15, 11, 2022)
+        'Tuesday'
     """
     date_dict = {
         0: 'Monday',

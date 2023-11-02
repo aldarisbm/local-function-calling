@@ -7,24 +7,48 @@ These are example docstrings, lead by the name of the function:
 get_weather:
 Returns the weather forecast for a given zipcode.
 Args:
-    zipcode (str): the zipcode to lookup. eg: 07410, 63105, 33315
+    zipcode (str): The zipcode to lookup.
 Returns:
-    str: The weather forecast. eg: Today's forecast is sunny, with a chance of rain after 6PM
+    str: The weather forecast.
+
+Examples:
+    >>> get_weather_forecast("90210")
+    'Partly cloudy with a chance of rain'
+    >>> get_weather_forecast("10001")
+    'Sunny and clear skies'
+    >>> get_weather_forecast("60601")
+    'Overcast with a chance of thunderstorms'
 ------
 get_zipcode:
 Returns a zipcode for a given city and state.
 Args:
-    city (str): City. eg: Rahway, Miami, Florissant
-    state (str): State in two letter abbreviation. eg: FL, NJ, NY
+    city (str): City.
+    state (str): State in two-letter abbreviation.
 Returns:
-    str: The zipcode as a string. eg: 07105, 33140, 63104
+    str: The zipcode as a string.
+
+Examples:
+    >>> get_zipcode("New York", "NY")
+    '10001'
+    >>> get_zipcode("Los Angeles", "CA")
+    '90001'
+    >>> get_zipcode("Chicago", "IL")
+    '60601'
 ------
 get_ord_for_char:
-Returns a unicode point as an int for given character.
+Returns a Unicode point as an integer for a given character.
 Args:
-    character (str): The character to lookup. a, t, ø
+    character (str): The character to lookup.
 Returns:
-    str: the unicode point as an int: 3, 22, 301
+    int: The Unicode point as an integer.
+
+Examples:
+    >>> get_unicode_point('A')
+    65
+    >>> get_unicode_point('€')
+    8364
+    >>> get_unicode_point('😃')
+    128515
 
 Given this prompt, return a JSON for the function to use, with the parameters for the function. Don't specify the returns,
 we will use the inputs to call the functions

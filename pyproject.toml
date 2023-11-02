@@ -12,6 +12,7 @@ langchain = "^0.0.327"
 llama-index = "^0.8.56"
 llama-cpp-python = "^0.2.11"
 python-dotenv = "^1.0.0"
+uszipcode = "^1.0.1"
 
 
 [build-system]

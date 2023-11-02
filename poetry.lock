@@ -180,6 +180,16 @@ files = [
 ]
 
 [[package]]
+name = "atomicwrites"
+version = "1.4.1"
+description = "Atomic file writes."
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+files = [
+    {file = "atomicwrites-1.4.1.tar.gz", hash = "sha256:81b2c9071a49367a7f770170e5eec8cb66567cfbbc8c73d20ce5ca4a8d71cf11"},
+]
+
+[[package]]
 name = "attrs"
 version = "23.1.0"
 description = "Classes Without Boilerplate"
@@ -495,6 +505,20 @@ ssh = ["paramiko"]
 tqdm = ["tqdm"]
 
 [[package]]
+name = "fuzzywuzzy"
+version = "0.18.0"
+description = "Fuzzy string matching in python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "fuzzywuzzy-0.18.0-py2.py3-none-any.whl", hash = "sha256:928244b28db720d1e0ee7587acf660ea49d7e4c632569cad4f1cd7e68a5f0993"},
+    {file = "fuzzywuzzy-0.18.0.tar.gz", hash = "sha256:45016e92264780e58972dca1b3d939ac864b78437422beecebb3095f8efd00e8"},
+]
+
+[package.extras]
+speedup = ["python-levenshtein (>=0.12)"]
+
+[[package]]
 name = "greenlet"
 version = "3.0.1"
 description = "Lightweight in-process concurrent programming"
@@ -563,6 +587,17 @@ files = [
 [package.extras]
 docs = ["Sphinx"]
 test = ["objgraph", "psutil"]
+
+[[package]]
+name = "haversine"
+version = "2.8.0"
+description = "Calculate the distance between 2 points on Earth."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "haversine-2.8.0-py2.py3-none-any.whl", hash = "sha256:524529d6c39619a513629b68331ce8153ccfc7c30049ed43405c27b12614e8f6"},
+    {file = "haversine-2.8.0.tar.gz", hash = "sha256:cca39afd2ae5f1e6ed9231b332395bb8afb2e0a64edf70c238c176492e60c150"},
+]
 
 [[package]]
 name = "idna"
@@ -1096,6 +1131,42 @@ test = ["hypothesis (>=6.46.1)", "pytest (>=7.3.2)", "pytest-asyncio (>=0.17.0)"
 xml = ["lxml (>=4.8.0)"]
 
 [[package]]
+name = "pathlib-mate"
+version = "1.2.1"
+description = "An extended and more powerful pathlib."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pathlib_mate-1.2.1-py2.py3-none-any.whl", hash = "sha256:6ef576ccefac39a8a1bb4b7d93fcd50f73113a34ddd01cc46ca149b947f7dc0e"},
+    {file = "pathlib_mate-1.2.1.tar.gz", hash = "sha256:0cd0a8b742941efdc5a3b3c46e75da6430c3f869fe6a5fb490025c0bc39a5c2d"},
+]
+
+[package.dependencies]
+atomicwrites = "*"
+six = "*"
+
+[package.extras]
+docs = ["docfly (==1.0.2)", "furo (==2021.8.31)", "rstobj (==0.0.7)", "sphinx (==4.3.0)", "sphinx-copybutton (==0.4.0)", "sphinx-inline-tabs (==2021.8.17b10)", "sphinx-jinja (==1.1.1)"]
+tests = ["autopep8", "pytest", "pytest-cov", "tox"]
+
+[[package]]
+name = "prettytable"
+version = "3.9.0"
+description = "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "prettytable-3.9.0-py3-none-any.whl", hash = "sha256:a71292ab7769a5de274b146b276ce938786f56c31cf7cea88b6f3775d82fe8c8"},
+    {file = "prettytable-3.9.0.tar.gz", hash = "sha256:f4ed94803c23073a90620b201965e5dc0bccf1760b7a7eaf3158cab8aaffdf34"},
+]
+
+[package.dependencies]
+wcwidth = "*"
+
+[package.extras]
+tests = ["pytest", "pytest-cov", "pytest-lazy-fixture"]
+
+[[package]]
 name = "pydantic"
 version = "2.4.2"
 description = "Data validation using Python type hints"
@@ -1557,6 +1628,24 @@ pymysql = ["pymysql"]
 sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
+name = "sqlalchemy-mate"
+version = "1.4.28.3"
+description = "A library extend sqlalchemy module, makes CRUD easier."
+optional = false
+python-versions = "*"
+files = [
+    {file = "sqlalchemy_mate-1.4.28.3-py2.py3-none-any.whl", hash = "sha256:90be4e1da67b1a266547c1cf035b546f5dcbfd374390bbf4cf746edb04fe1259"},
+    {file = "sqlalchemy_mate-1.4.28.3.tar.gz", hash = "sha256:2af60be94ca92466ae9cfbbea13bfc3f1ee500b23f8e38b237e08ef2dc4b62df"},
+]
+
+[package.dependencies]
+prettytable = "*"
+
+[package.extras]
+docs = ["docfly (==1.0.2)", "furo (==2021.8.31)", "rstobj (==0.0.7)", "sphinx (==4.3.0)", "sphinx-copybutton (==0.4.0)", "sphinx-inline-tabs (==2021.8.17b10)", "sphinx-jinja (==1.1.1)"]
+tests = ["attrs", "pandas", "pg8000", "pytest", "pytest-cov", "superjson"]
+
+[[package]]
 name = "tenacity"
 version = "8.2.3"
 description = "Retry code until it succeeds"
@@ -1687,6 +1776,42 @@ files = [
 brotli = ["brotli (==1.0.9)", "brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
 secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+
+[[package]]
+name = "uszipcode"
+version = "1.0.1"
+description = "USA zipcode programmable database, includes 2020 census data and geometry information."
+optional = false
+python-versions = "*"
+files = [
+    {file = "uszipcode-1.0.1-py2.py3-none-any.whl", hash = "sha256:19bd1ee160e96544fbeefb624540ce342ae139462cce5465ae1dff6819cdbedc"},
+    {file = "uszipcode-1.0.1.tar.gz", hash = "sha256:c1bc2e0e47f4f4446447b6be205e76943f7978a4dcd651d4059c78002634cabb"},
+]
+
+[package.dependencies]
+atomicwrites = "*"
+attrs = "*"
+fuzzywuzzy = "*"
+haversine = ">=2.5.0"
+pathlib-mate = "*"
+requests = "*"
+SQLAlchemy = ">=1.4.0"
+sqlalchemy-mate = ">=1.4.28.3"
+
+[package.extras]
+docs = ["docfly (==1.0.2)", "furo (==2021.8.31)", "rstobj (==0.0.7)", "sphinx (==4.3.0)", "sphinx-copybutton (==0.4.0)", "sphinx-inline-tabs (==2021.8.17b10)", "sphinx-jinja (==1.1.1)"]
+tests = ["pytest", "pytest-cov"]
+
+[[package]]
+name = "wcwidth"
+version = "0.2.9"
+description = "Measures the displayed width of unicode strings in a terminal"
+optional = false
+python-versions = "*"
+files = [
+    {file = "wcwidth-0.2.9-py2.py3-none-any.whl", hash = "sha256:9a929bd8380f6cd9571a968a9c8f4353ca58d7cd812a4822bba831f8d685b223"},
+    {file = "wcwidth-0.2.9.tar.gz", hash = "sha256:a675d1a4a2d24ef67096a04b85b02deeecd8e226f57b5e3a72dbb9ed99d27da8"},
+]
 
 [[package]]
 name = "wrapt"
@@ -1862,4 +1987,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.9"
-content-hash = "45690e83277fe6ce2552a144582c9f985ba83b308a6b099f02263040c5995a0c"
+content-hash = "3e00ec58d80c1c3f43f404c83c051a8bb4c58aa354c423e89079790f2aad79bd"

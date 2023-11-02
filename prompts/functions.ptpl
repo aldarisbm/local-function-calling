@@ -38,17 +38,17 @@ Examples:
 get_ord_for_char:
 Returns a Unicode point as an integer for a given character.
 Args:
-    character (str): The character to lookup.
+    char (str): The character to lookup.
 Returns:
     int: The Unicode point as an integer.
 
 Examples:
     >>> get_unicode_point('A')
-    U+0041
+    'U+0041'
     >>> get_unicode_point('€')
-    U+20AC
+    'U+20AC'
     >>> get_unicode_point('😃')
-    U+1F603
+    'U+1F603'
 
 Given this prompt, return a JSON for the function to use, with the parameters for the function. Don't specify the returns,
 we will use the inputs to call the functions

@@ -2,7 +2,7 @@ def get_unicode_point(char: str) -> str:
     """
     Returns a Unicode point as an integer for a given character.
     Args:
-        character (str): The character to lookup.
+        char (str): The character to lookup.
     Returns:
         int: The Unicode point as an integer.
 

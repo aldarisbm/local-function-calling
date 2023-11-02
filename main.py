@@ -52,4 +52,4 @@ res = json_result.strip()
 fns = json.loads(res)['functions_to_call']
 for fn in fns:
     fn_name = fn['function_name']
-    print(fns_map[fn_name](fn['parameters']))
+    print(fns_map[fn_name](**fn['parameters']))

@@ -35,7 +35,7 @@ Examples:
     >>> get_zipcode("Chicago", "IL")
     '60601'
 ------
-get_ord_for_char:
+get_unicode_point:
 Returns a Unicode point as an integer for a given character.
 Args:
     char (str): The character to lookup.

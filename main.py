@@ -47,5 +47,6 @@ query: str = ptpl.render(query="What is the unicode point of the letter H")
 json_result: str = llm(prompt=query)
 print(json_result)
 res = json_result.strip()
-res = json.loads(res)
-print(res)
+fns = json.loads(res)['functions_to_call']
+for fn in fns:
+    print(f"function that should be called is: {fn['function_name']}")

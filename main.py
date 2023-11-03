@@ -47,6 +47,9 @@ ptpl: Template = environment.get_template("functions.ptpl")
 input: str = input('Tell me your query: ')
 query: str = ptpl.render(query=input)
 
+for k, v in fns_map.items():
+    print(v.__doc__)
+
 json_result: str = llm(prompt=query)
 print(json_result)
 res = json_result.strip()

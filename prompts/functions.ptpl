@@ -49,6 +49,23 @@ Examples:
     'U+20AC'
     >>> get_unicode_point('😃')
     'U+1F603'
+------
+get_weekday:
+Returns the weekday for a given date.
+Args:
+    day (int): The day.
+    month (int): The month.
+    year (int): The year.
+Returns:
+    str: The weekday of the date provided.
+
+Examples:
+    >>> get_weekday(1, 1, 2023)
+    'Sunday'
+    >>> get_weekday(20, 5, 2023)
+    'Saturday'
+    >>> get_weekday(15, 11, 2022)
+    'Tuesday'
 
 Given this prompt, return a JSON for the function to use, with the parameters for the function. Don't specify the returns,
 we will use the inputs to call the functions

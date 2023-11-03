@@ -44,7 +44,8 @@ logging.debug(f'loaded model: {model_name}')
 
 environment: Environment = Environment(loader=FileSystemLoader("prompts/"))
 ptpl: Template = environment.get_template("functions.ptpl")
-query: str = ptpl.render(query="What is the unicode point of the letter H")
+input: str = input('Tell me your query: ')
+query: str = ptpl.render(query=input)
 
 json_result: str = llm(prompt=query)
 print(json_result)

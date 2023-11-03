@@ -20,4 +20,4 @@ def get_zipcode(city: str, state: str) -> str:
     """
     engine = SearchEngine()
     res = engine.by_city_and_state(city, state)
-    return res
+    return res[0].zipcode

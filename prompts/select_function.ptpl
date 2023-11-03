@@ -8,106 +8,12 @@ Query:
 
 Function Objects:
 
-[
-{% for fn in functions.items() -%}
-    { "{{ fn.name }}": "{{ fn.signature }}" },
-{% endfor %}
-]
+[{% for key, value in functions.items() -%}
+    {"{{ key }}": "{{ value }}"},{% endfor %}]
 
-
-
-These are example docstrings, lead by the name of the function:
-get_weather:
-Returns the weather forecast for a given zipcode.
-Args:
-    zipcode (str): The zipcode to lookup.
-Returns:
-    str: The weather forecast.
-
-Examples:
-    >>> get_weather_forecast("90210")
-    'Partly cloudy with a chance of rain'
-    >>> get_weather_forecast("10001")
-    'Sunny and clear skies'
-    >>> get_weather_forecast("60601")
-    'Overcast with a chance of thunderstorms'
-------
-get_zipcode:
-Returns a zipcode for a given city and state.
-Args:
-    city (str): City.
-    state (str): State in two-letter abbreviation.
-Returns:
-    str: The zipcode as a string.
-
-Examples:
-    >>> get_zipcode("New York", "NY")
-    '10001'
-    >>> get_zipcode("Los Angeles", "CA")
-    '90001'
-    >>> get_zipcode("Chicago", "IL")
-    '60601'
-------
-get_unicode_point:
-Returns a Unicode point as an integer for a given character.
-Args:
-    char (str): The character to lookup.
-Returns:
-    int: The Unicode point as an integer.
-
-Examples:
-    >>> get_unicode_point('A')
-    'U+0041'
-    >>> get_unicode_point('€')
-    'U+20AC'
-    >>> get_unicode_point('😃')
-    'U+1F603'
-------
-get_weekday:
-Returns the weekday for a given date.
-Args:
-    day (int): The day.
-    month (int): The month.
-    year (int): The year.
-Returns:
-    str: The weekday of the date provided.
-
-Examples:
-    >>> get_weekday(1, 1, 2023)
-    'Sunday'
-    >>> get_weekday(20, 5, 2023)
-    'Saturday'
-    >>> get_weekday(15, 11, 2022)
-    'Tuesday'
-
-Given this prompt, return a JSON for the function to use, with the parameters for the function. Don't specify the returns,
-we will use the inputs to call the functions
-What is the weather in 11202?[/INST]
-{
-    "functions_to_call": [
-        {
-            "function_name": "get_weather",
-            "parameters": {
-                "zipcode": "11202"
-            },
-            "notes": "User requested the weather for zipcode 11202. Analyzing all of the tooling we have available, getweather is the best fit."
-        }
-    ]
-}
 [INST]
 What is the zipcode of Miami, OH?[/INST]
-{
-    "functions_to_call": [
-        {
-            "function_name": "get_zipcode",
-            "parameters": {
-                "city": "Miami",
-                "state": "OH"
-            },
-            "notes": "User requested a zipcode for Miami, OH. Analyzing all of the tooling we have available, get_zipcode is the best fit."
-        }
-    ]
-}
+${few shot}
 </s>
 [INST]
 {{ query }}

@@ -20,7 +20,7 @@ callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 home_path = Path.home()
 model_folder = os.getenv('MODEL_FOLDER', 'Development/llama.cpp/models')
 model_param_ct = os.getenv('MODEL_PARAM_CT', '7B')
-model_name = os.getenv('MODEL_NAME', 'mistral-7b-openorca.Q8_0.gguf')
+model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 grammar_file = os.getenv('GRAMMAR_PATH', './grammars/json.gbnf')
 
 model_name = f'{home_path}/{model_folder}/{model_param_ct}/{model_name}'
@@ -31,10 +31,9 @@ llm: LlamaCpp = LlamaCpp(
     use_mlock=True,
     grammar_path=grammar_file,
     max_tokens=-1,
-    seed=42,
     n_batch=512,
     n_threads=4,
-    n_ctx=8192,
+    n_ctx=4096,
     n_gpu_layers=30,
     callback_manager=callback_manager,
     verbose=True,  # Verbose is required to pass to the callback manager
@@ -44,11 +43,8 @@ logging.debug(f'loaded model: {model_name}')
 
 environment: Environment = Environment(loader=FileSystemLoader("prompts/"))
 ptpl: Template = environment.get_template("functions.ptpl")
-input: str = input('Tell me your query: ')
+input: str = 'What is the unicode point of ü'
 query: str = ptpl.render(query=input)
-
-for k, v in fns_map.items():
-    print(v.__doc__)
 
 json_result: str = llm(prompt=query)
 print(json_result)

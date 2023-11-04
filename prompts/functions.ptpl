@@ -1,16 +1,13 @@
 {# prompts/functions.tptl #}
-
-<s>[INST] You're an orchestrator, you will be given function docstrings, and you will choose which function will help give an
-accurate answer to a given prompt.
-
-These are example docstrings, lead by the name of the function:
+[INST] <<SYS>> You're a function orchestrator, based on the functions available to you, decide which one can help give an
+accurate answer to a given query.
+These are the functions you can use:
 get_weather:
 Returns the weather forecast for a given zipcode.
 Args:
     zipcode (str): The zipcode to lookup.
 Returns:
     str: The weather forecast.
-
 Examples:
     >>> get_weather_forecast("90210")
     'Partly cloudy with a chance of rain'
@@ -26,7 +23,6 @@ Args:
     state (str): State in two-letter abbreviation.
 Returns:
     str: The zipcode as a string.
-
 Examples:
     >>> get_zipcode("New York", "NY")
     '10001'
@@ -41,7 +37,6 @@ Args:
     char (str): The character to lookup.
 Returns:
     int: The Unicode point as an integer.
-
 Examples:
     >>> get_unicode_point('A')
     'U+0041'
@@ -58,7 +53,6 @@ Args:
     year (int): The year.
 Returns:
     str: The weekday of the date provided.
-
 Examples:
     >>> get_weekday(1, 1, 2023)
     'Sunday'
@@ -66,9 +60,7 @@ Examples:
     'Saturday'
     >>> get_weekday(15, 11, 2022)
     'Tuesday'
-
-Given this prompt, return a JSON for the function to use, with the parameters for the function. Don't specify the returns,
-we will use the inputs to call the functions
+<</SYS>>
 What is the weather in 11202?[/INST]
 {
     "functions_to_call": [
@@ -81,7 +73,7 @@ What is the weather in 11202?[/INST]
         }
     ]
 }
-[INST]
+</s><s>[INST]
 What is the zipcode of Miami, OH?[/INST]
 {
     "functions_to_call": [
@@ -95,7 +87,6 @@ What is the zipcode of Miami, OH?[/INST]
         }
     ]
 }
-</s>
-[INST]
+</s><s>[INST]
 {{ query }}
 [/INST]

@@ -1,5 +1,5 @@
 {# prompts/functions.tptl #}
-[INST] <<SYS>> You're a function orchestrator, based on the functions available to you, decide which one can help give an
+[INST] <<SYS>> You're a function orchestrator, based on the functions available. You will decide which one can give an
 accurate answer to a given query.
 These are the functions you can use:
 get_weather:
@@ -88,5 +88,4 @@ What is the zipcode of Miami, OH?[/INST]
     ]
 }
 </s><s>[INST]
-{{ query }}
-[/INST]
+{{ query }}[/INST]

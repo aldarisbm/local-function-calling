@@ -5,7 +5,6 @@ def get_unicode_point(char: str) -> str:
         char (str): The character to lookup.
     Returns:
         int: The Unicode point as an integer.
-
     Examples:
         >>> get_unicode_point('A')
         'U+0041'

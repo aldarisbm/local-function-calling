@@ -8,6 +8,7 @@ Args:
     zipcode (str): The zipcode to lookup.
 Returns:
     str: The weather forecast.
+
 Examples:
     >>> get_weather_forecast("90210")
     'Partly cloudy with a chance of rain'
@@ -23,6 +24,7 @@ Args:
     state (str): State in two-letter abbreviation.
 Returns:
     str: The zipcode as a string.
+
 Examples:
     >>> get_zipcode("New York", "NY")
     '10001'
@@ -37,6 +39,7 @@ Args:
     char (str): The character to lookup.
 Returns:
     int: The Unicode point as an integer.
+
 Examples:
     >>> get_unicode_point('A')
     'U+0041'
@@ -53,6 +56,7 @@ Args:
     year (int): The year.
 Returns:
     str: The weekday of the date provided.
+
 Examples:
     >>> get_weekday(1, 1, 2023)
     'Sunday'

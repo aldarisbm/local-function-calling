@@ -10,6 +10,7 @@ def get_weekday(day: int, month: int, year: int) -> str:
         year (int): The year.
     Returns:
         str: The weekday of the date provided.
+
     Examples:
         >>> get_weekday(1, 1, 2023)
         'Sunday'

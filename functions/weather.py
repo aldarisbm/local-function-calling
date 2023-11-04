@@ -5,6 +5,7 @@ Args:
     zipcode (str): The zipcode to lookup.
 Returns:
     str: The weather forecast.
+
 Examples:
     >>> get_weather_forecast("90210")
     'Partly cloudy with a chance of rain'

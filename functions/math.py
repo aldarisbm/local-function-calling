@@ -6,6 +6,7 @@ def add_integers(a: int, b: int) -> int:
         b (int): The second integer to be added.
     Returns:
         int: The sum of 'a' and 'b'.
+
     Examples:
         >>> add_integers(1, 2)
         3

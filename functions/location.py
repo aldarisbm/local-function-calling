@@ -9,6 +9,7 @@ def get_zipcode(city: str, state: str) -> str:
         state (str): State in two-letter abbreviation.
     Returns:
         str: The zipcode as a string.
+
     Examples:
         >>> get_zipcode("New York", "NY")
         '10001'

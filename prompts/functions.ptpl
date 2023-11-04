@@ -38,7 +38,7 @@ Returns a Unicode point as an integer for a given character.
 Args:
     char (str): The character to lookup.
 Returns:
-    int: The Unicode point as an integer.
+    int: The Unicode point as a unicode string.
 
 Examples:
     >>> get_unicode_point('A')

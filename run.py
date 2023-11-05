@@ -19,7 +19,8 @@ def run():
 
     tests: list[str] = [
         'What is the unicode point of the letter R?',
-        'What is the zipcode of Saint Louis, MO?'
+        'What is the zipcode of Saint Louis, MO?',
+        'this should fail bc nothing'
     ]
 
     generations: list[dict] = []
@@ -35,7 +36,7 @@ def run():
             "is_valid": False,
             "query": test_query,
             "invoked_fn_output": None,
-            "generation": res,
+            "generation": res if res != test_query else None,
             "full_prompt": query,
             "error": None,
             "model_name": model_name,
@@ -47,12 +48,13 @@ def run():
             fn = json.loads(res)
         except JSONDecodeError as e:
             generation_tracker.update({
-                "error": e,
+                "error": f"decoding json: {e}",
             })
             generations.append(generation_tracker)
             logging.error(f"while decoding json: {e}")
             continue
 
+        logging.info(f'Got output: {fn}')
         fn_name = fn['function_name'] if 'function_name' in fn else None
 
         if not fn_name:
@@ -60,7 +62,6 @@ def run():
                 "error": f'could not generate for {test_query}'
             })
             generations.append(generation_tracker)
-
             logging.error(f'generation not found for: {test_query}')
             continue
 
@@ -68,7 +69,7 @@ def run():
             resp = fns_map[fn_name](**fn['parameters'])
         except Exception as e:
             generation_tracker.update({
-                "error": e,
+                "error": f'calling function: {e}',
             })
             generations.append(generation_tracker)
             logging.error(f"while calling the function with the generated parameters: {e}")
@@ -90,4 +91,3 @@ def run():
     # create a wandb run
     with wandb.init(project=project, job_type="inference", config=config):
         wandb.log({"preds_table": pred_table})
-        wandb.finish(quiet=True)

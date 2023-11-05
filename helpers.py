@@ -1,5 +1,6 @@
 import logging
 import os
+from importlib import metadata
 from pathlib import Path
 
 from jinja2 import Environment, Template, FileSystemLoader
@@ -42,3 +43,13 @@ def get_inference_params() -> dict:
         n_gpu_layers=30
     )
     return inference_params
+
+
+def get_pkgs_versions() -> dict:
+    # we should keep track of important packages here, we do that in the project toml, but we won't be pushing that to
+    # wandb every run.
+    llama_cpp_version = metadata.version('llama-cpp-python')
+
+    return dict(
+        llama_cpp=llama_cpp_version
+    )

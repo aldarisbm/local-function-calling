@@ -9,7 +9,7 @@ from llama_cpp import Llama
 
 import wandb
 from function_map import fns_map
-from helpers import load_template, load_llm, get_inference_params
+from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions
 from inference import inference
 
 
@@ -17,7 +17,7 @@ def run():
     project = os.getenv('PROJECT', 'local-function-calling')
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 
-    examples: list[str] = [
+    tests: list[str] = [
         'What is the unicode point of the letter R?',
         'What is the zipcode of Saint Louis, MO?'
     ]
@@ -25,39 +25,61 @@ def run():
     generations: list[dict] = []
     inference_params: dict = get_inference_params()
     logging.debug(f'inference params: {inference_params}')
-    for example_query in examples:
+    for test_query in tests:
         ptpl: Template = load_template('functions')
-        query: str = ptpl.render(query=example_query)
+        query: str = ptpl.render(query=test_query)
         llm: Llama = load_llm(inference_params)
         res, raw_output, t = inference(llm, query)
         tok_s = raw_output["usage"]["completion_tokens"] / t
         generation_tracker = {
-            "question": example_query,
+            "is_valid": False,
+            "query": test_query,
+            "generation": res,
+            "invoked_fn_output": None,
             "full_prompt": query,
-            "answer": res,
+            "error": None,
             "model_name": model_name,
             "tokens_sec": tok_s,
-            "model_file": raw_output["model"],
-            "inference_params": inference_params
+            "in_params": inference_params,
+            "pkg_v": get_pkgs_versions()
         }
         try:
             fn = json.loads(res)
         except JSONDecodeError as e:
-            generation_tracker.update({"is_valid": False})
+            generation_tracker.update({
+                "error": e,
+            })
             generations.append(generation_tracker)
-            logging.error(e)
+            logging.error(f"while decoding json: {e}")
             continue
 
-        fn_name = fn['function_name']
+        fn_name = fn['function_name'] if 'function_name' in fn else None
+
+        if not fn_name:
+            generation_tracker.update({
+                "error": f'could not generate for {example_query}'
+            })
+            generations.append(generation_tracker)
+
+            logging.error(f'generation not found for: {example_query}')
+            continue
+
         try:
             resp = fns_map[fn_name](**fn['parameters'])
         except Exception as e:
-            generation_tracker.update({"is_valid": False})
+            generation_tracker.update({
+                "error": e,
+            })
             generations.append(generation_tracker)
-            logging.error(e)
+            logging.error(f"while calling the function with the generated parameters: {e}")
             continue
+        # if we made it here we assume we succeeded.
         logging.info(f'Response: {resp}')
-        generation_tracker.update({"is_valid": True})
+        generation_tracker.update(
+            {
+                "is_valid": True,
+                "invoked_fn_output": resp,
+            })
         generations.append(generation_tracker)
 
     pred_table = wandb.Table(dataframe=pd.DataFrame(generations))

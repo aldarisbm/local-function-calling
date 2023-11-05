@@ -14,7 +14,7 @@ from inference import inference
 
 
 def run():
-    project = os.getenv('PROJECT', 'local-function-calling')
+    project = os.getenv('PROJECT', 'local-fn-calling')
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 
     tests: list[str] = [
@@ -34,8 +34,8 @@ def run():
         generation_tracker = {
             "is_valid": False,
             "query": test_query,
-            "generation": res,
             "invoked_fn_output": None,
+            "generation": res,
             "full_prompt": query,
             "error": None,
             "model_name": model_name,

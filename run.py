@@ -15,8 +15,12 @@ from inference import inference
 
 def run():
     project = os.getenv('PROJECT', 'local-function-calling')
-    examples: list[str] = ['What is the unicode point of the letter R']
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
+
+    examples: list[str] = [
+        'What is the unicode point of the letter R?',
+        'What is the zipcode of Saint Louis, MO?'
+    ]
 
     generations: list[dict] = []
     inference_params: dict = get_inference_params()

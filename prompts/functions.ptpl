@@ -67,29 +67,21 @@ Examples:
 <</SYS>>
 What is the weather in 11202?[/INST]
 {
-    "functions_to_call": [
-        {
-            "function_name": "get_weather",
-            "parameters": {
-                "zipcode": "11202"
-            },
-            "notes": "User requested the weather for zipcode 11202. Analyzing all of the tooling we have available, getweather is the best fit."
-        }
-    ]
+    "function_name": "get_weather",
+    "parameters": {
+        "zipcode": "11202"
+    },
+    "notes": "User requested the weather for zipcode 11202. Analyzing all of the tooling we have available, getweather is the best fit."
 }
 </s><s>[INST]
 What is the zipcode of Miami, OH?[/INST]
 {
-    "functions_to_call": [
-        {
-            "function_name": "get_zipcode",
-            "parameters": {
-                "city": "Miami",
-                "state": "OH"
-            },
-            "notes": "User requested a zipcode for Miami, OH. Analyzing all of the tooling we have available, get_zipcode is the best fit."
-        }
-    ]
+    "function_name": "get_zipcode",
+    "parameters": {
+        "city": "Miami",
+        "state": "OH"
+    },
+    "notes": "User requested a zipcode for Miami, OH. Analyzing all of the tooling we have available, get_zipcode is the best fit."
 }
 </s><s>[INST]
 {{ query }}[/INST]

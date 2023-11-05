@@ -1,22 +1,54 @@
 import json
+import logging
+import os
+from json import JSONDecodeError
 
 from jinja2 import Template
+from llama_cpp import Llama
 
 from function_map import fns_map
-from helpers import load_template, load_llm
+from helpers import load_template, load_llm, get_inference_params
+from inference import inference
 
 
 def run():
-    user_query: str = input('What is your query?:')
+    examples: list[str] = ['What is the unicode point of the letter R']
+    model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 
-    ptpl: Template = load_template('functions')
-    query: str = ptpl.render(query=user_query)
-    llm = load_llm()
+    generations: list[dict] = []
+    for example_query in examples:
+        ptpl: Template = load_template('functions')
+        query: str = ptpl.render(query=example_query)
+        inference_params: dict = get_inference_params()
+        logging.debug(f'inference params: {inference_params}')
+        llm: Llama = load_llm(inference_params)
+        res, raw_output, t = inference(llm, query)
+        tok_s = raw_output["usage"]["completion_tokens"] / t
+        generation_tracker = {
+            "question": example_query,
+            "full_prompt": query,
+            "answer": res,
+            "model_name": model_name,
+            "tokens_sec": tok_s,
+            "model_file": raw_output["model"],
+            "inference_params": inference_params
+        }
+        try:
+            fn = json.loads(res)
+        except JSONDecodeError as e:
+            generation_tracker.update({"is_valid": False})
+            generations.append(generation_tracker)
+            logging.error(e)
+            continue
 
-    output = llm(query)
-    json_result = output['choices'][0]['text']
-    res = json_result.strip()
-    fns = json.loads(res)['functions_to_call']
-    for fn in fns:
         fn_name = fn['function_name']
-        print(fns_map[fn_name](**fn['parameters']))
+        try:
+            resp = fns_map[fn_name](**fn['parameters'])
+        except Exception as e:
+            generation_tracker.update({"is_valid": False})
+            generations.append(generation_tracker)
+            logging.error(e)
+            continue
+        logging.info(f'Response: {resp}')
+        generation_tracker.update({"is_valid": True})
+        generations.append(generation_tracker)

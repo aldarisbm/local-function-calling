@@ -16,10 +16,21 @@ def get_model_path() -> str:
     return model_path
 
 
-def load_llm() -> Llama:
+def load_llm(params: dict) -> Llama:
+    llm: Llama = Llama(**params)
+    return llm
+
+
+def load_template(template: str) -> Template:
+    environment: Environment = Environment(loader=FileSystemLoader("prompts/"))
+    ptpl: Template = environment.get_template(f"{template}.ptpl")
+    return ptpl
+
+
+def get_inference_params() -> dict:
     model_path = get_model_path()
     grammar_file = os.getenv('GRAMMAR_FILE', './grammars/json.gbnf')
-    llm: Llama = Llama(
+    inference_params = dict(
         model_path=model_path,
         temperature=0,
         use_mlock=True,
@@ -30,10 +41,4 @@ def load_llm() -> Llama:
         n_ctx=4096,
         n_gpu_layers=30
     )
-    return llm
-
-
-def load_template(template: str) -> Template:
-    environment: Environment = Environment(loader=FileSystemLoader("prompts/"))
-    ptpl: Template = environment.get_template(f"{template}.ptpl")
-    return ptpl
+    return inference_params

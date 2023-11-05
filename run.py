@@ -59,10 +59,10 @@ def run():
 
         if not fn_name:
             generation_tracker.update({
-                "error": f'could not generate for {test_query}'
+                "error": f'could not generate for: "{test_query}", empty output'
             })
             generations.append(generation_tracker)
-            logging.error(f'generation not found for: {test_query}')
+            logging.error(f'generation not found for: "{test_query}"')
             continue
 
         try:

@@ -1,6 +1,8 @@
 {# prompts/functions.tptl #}
 [INST] <<SYS>> You're a function orchestrator, based on the functions available. You will decide which one can give an
-accurate answer to a given query.
+accurate answer to a given query. If the functions provided cannot give a meaningful answer to the query, reply with an empty
+JSON object such as: {}
+
 These are the functions you can use:
 get_weather:
 Returns the weather forecast for a given zipcode.
@@ -73,6 +75,9 @@ What is the weather in 11202?[/INST]
     },
     "notes": "User requested the weather for zipcode 11202. Analyzing all of the tooling we have available, getweather is the best fit."
 }
+</s><s>[INST]
+What is the score between Manchester United and Arsenal FC?[/INST]
+{}
 </s><s>[INST]
 What is the zipcode of Miami, OH?[/INST]
 {

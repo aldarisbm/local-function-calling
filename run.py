@@ -18,18 +18,21 @@ def run():
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 
     tests: list[str] = [
+        'what is the date today?',
         'What is the unicode point of the letter R?',
         'What is the zipcode of Saint Louis, MO?',
-        'this should fail bc nothing'
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?'
     ]
 
     generations: list[dict] = []
     inference_params: dict = get_inference_params()
     logging.debug(f'inference params: {inference_params}')
+    # we are putting this outside of the loop to not re-initialize this 3 times.
+    llm: Llama = load_llm(inference_params)
     for test_query in tests:
         ptpl: Template = load_template('functions')
         query: str = ptpl.render(query=test_query)
-        llm: Llama = load_llm(inference_params)
         res, raw_output, t = inference(llm, query)
         tok_s = raw_output["usage"]["completion_tokens"] / t
         generation_tracker = {
@@ -79,7 +82,7 @@ def run():
         generation_tracker.update(
             {
                 "is_valid": True,
-                "invoked_fn_output": resp,
+                "invoked_fn_output": str(resp),  # we should always string this bc it gets saved to wandb
             })
         generations.append(generation_tracker)
 

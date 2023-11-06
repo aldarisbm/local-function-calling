@@ -29,3 +29,20 @@ def get_weekday(day: int, month: int, year: int) -> str:
         6: 'Sunday',
     }
     return date_dict[datetime(day=day, month=month, year=year).weekday()]
+
+
+def get_date() -> str:
+    """
+    Returns today's date as a string'
+    Returns:
+        str: Today's date.
+
+    Examples:
+        >>> get_date
+        '2023-01-06 11:15:37.063665'
+        >>> get_date
+        '2023-11-16 12:31:37.063665'
+        >>> get_date
+        '2023-04-01 05:20:37.063665'
+    """
+    return str(datetime.today())

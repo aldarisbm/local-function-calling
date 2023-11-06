@@ -1,3 +1,4 @@
 .env
 .idea
 wandb
+functionality.py

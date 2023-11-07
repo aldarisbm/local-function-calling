@@ -18,11 +18,11 @@ def run():
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 
     tests: list[str] = [
+        'can you check google for today\'s top news?',
         'what is the date today?',
         'What is the unicode point of the letter R?',
         'What is the zipcode of Saint Louis, MO?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?'
+        'this should fail bc nothing'
     ]
 
     generations: list[dict] = []
@@ -63,6 +63,13 @@ def run():
                 logging.error(f"got response: {res}")
                 continue
 
+            if 'error' in fn:
+                logging.info(f"could not pick a function for: {test_query}, got error: {fn['error']}")
+                generation_tracker.update({
+                    "error": fn['error']
+                })
+                generations.append(generation_tracker)
+                continue
             logging.info(f'got output: {fn}')
             fn_name = fn['function_name'] if 'function_name' in fn else None
 

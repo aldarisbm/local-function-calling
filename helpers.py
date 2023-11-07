@@ -49,6 +49,7 @@ def get_inference_params() -> dict:
         temperature=0,
         grammar=grammar,
         max_tokens=-1,
+        top_k=50
     )
     return inference_params
 

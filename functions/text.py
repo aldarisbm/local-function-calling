@@ -5,6 +5,8 @@ def get_unicode_point(char: str) -> str:
         char (str): The character to lookup.
     Returns:
         int: The Unicode point as an integer.
+    Raises:
+        ValueError: If the string is longer than 1 character
 
     Examples:
         >>> get_unicode_point('A')
@@ -15,5 +17,5 @@ def get_unicode_point(char: str) -> str:
         'U+1F603'
     """
     if len(char) != 1:
-        raise Exception('character must be a single character')
+        raise ValueError('character must be a single character')
     return f'U+{ord(char):04X}'

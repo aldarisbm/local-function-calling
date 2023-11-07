@@ -1,56 +1,56 @@
 {# prompts/functions.tptl #}
-[INST] <<SYS>> You're a function orchestrator. Based on the functions available, you will decide which one can give the most accurate answer to the given query
-If the functions provided cannot give a meaningful answer to the query, reply with an empty JSON object: {}
-IMPORTANT: If the JSON object is not empty, then it should have always have these keys: ["function_name", "parameters", "notes"]
-IMPORTANT: You should always send valid JSON otherwise the program will fail. If a function does not have parameters, you will send an empty object such as: "parameters": {}
+[INST] <<SYS>>You're a function orchestrator. Based on the functions available, you will decide which one can give the most accurate answer to the given query.
+You will pay special attention to the parameters in the functions so that you're able to send valid JSON.
+Your outputs are consumed by another application, it's of the utmost importance to fill the JSON object properly.
 
 These are the functions you can use:
 ------
 get_weather_forecast(zipcode: str)-> str:
-Returns the weather forecast for a given zipcode.
-Args:
-    zipcode (str): The zipcode to lookup.
-Returns:
-    str: The weather forecast.
+    Returns the weather forecast for a given zipcode.
+    Args:
+        zipcode (str): The zipcode to lookup.
+    Returns:
+        str: The weather forecast.
 
-Examples:
-    >>> get_weather_forecast(zipcode="90210")
-    'Partly cloudy with a chance of rain'
-    >>> get_weather_forecast(zipcode="10001")
-    'Sunny and clear skies'
-    >>> get_weather_forecast(zipcode="60601")
-    'Overcast with a chance of thunderstorms'
+    Examples:
+        >>> get_weather_forecast(zipcode="90210")
+        'Partly cloudy with a chance of rain'
+        >>> get_weather_forecast(zipcode="10001")
+        'Sunny and clear skies'
+        >>> get_weather_forecast(zipcode="60601")
+        'Overcast with a chance of thunderstorms'
 ------
 get_zipcode(city: str, state: str) -> str:
-Returns a zipcode for a given city and state.
-Args:
-    city (str): City.
-    state (str): State in two-letter abbreviation.
-Returns:
-    str: The zipcode as a string.
+    Returns a zipcode for a given city and state.
+    Args:
+        city (str): City.
+        state (str): State in two-letter abbreviation.
+    Returns:
+        str: The zipcode as a string.
 
-Examples:
-    >>> get_zipcode(city="New York", state="NY")
-    '10001'
-    >>> get_zipcode(city="Los Angeles", state="CA")
-    '90001'
-    >>> get_zipcode(city="Chicago", state="IL")
-    '60601'
+    Examples:
+        >>> get_zipcode(city="New York", state="NY")
+        '10001'
+        >>> get_zipcode(city="Los Angeles", state="CA")
+        '90001'
+        >>> get_zipcode(city="Chicago", state="IL")
+        '60601'
 ------
 get_unicode_point(char: str) -> str:
-Returns a Unicode point as an integer for a given character.
-Args:
-    char (str): The character to lookup.
-Returns:
-    int: The Unicode point as a unicode string.
-
-Examples:
-    >>> get_unicode_point(char='A')
-    'U+0041'
-    >>> get_unicode_point(char='€')
-    'U+20AC'
-    >>> get_unicode_point(char='😃')
-    'U+1F603'
+    Returns a Unicode point as str for a given character, char must be of len=1.
+    Args:
+        char (str): The character to lookup.
+    Returns:
+        int: The Unicode point as a unicode string.
+    Raises:
+        ValueError: If the string is longer than 1 character
+    Examples:
+        >>> get_unicode_point(char='A')
+        'U+0041'
+        >>> get_unicode_point(char='€s')
+        ValueError
+        >>> get_unicode_point(char='😃')
+        'U+1F603'
 ------
 search_google(query: str, **kwargs):
     Returns the result from the Google Search API
@@ -97,21 +97,21 @@ get_date():
         '2023-04-01 05:20:37.063665'
 ------
 get_weekday(day: int, month: int, year: int) -> str:
-Returns the weekday for a given date.
-Args:
-    day (int): The day.
-    month (int): The month.
-    year (int): The year.
-Returns:
-    str: The weekday of the date provided.
+    Returns the weekday for a given date.
+    Args:
+        day (int): The day.
+        month (int): The month.
+        year (int): The year.
+    Returns:
+        str: The weekday of the date provided.
 
-Examples:
-    >>> get_weekday(day=1, month=1, year=2023)
-    'Sunday'
-    >>> get_weekday(day=20, month=5, year=2023)
-    'Saturday'
-    >>> get_weekday(day=15, month=11, year=2022)
-    'Tuesday'
+    Examples:
+        >>> get_weekday(day=1, month=1, year=2023)
+        'Sunday'
+        >>> get_weekday(day=20, month=5, year=2023)
+        'Saturday'
+        >>> get_weekday(day=15, month=11, year=2022)
+        'Tuesday'
 <</SYS>>
 What is the weather in 11202?[/INST]
 {
@@ -123,7 +123,9 @@ What is the weather in 11202?[/INST]
 }
 </s><s>[INST]
 Itsy bitsy spider[/INST]
-{}
+{
+    "error": "noop. Analyzing all of the tooling we have available, none fits the query."
+}
 </s><s>[INST]
 What is the zipcode of Miami, OH?[/INST]
 {
@@ -136,7 +138,9 @@ What is the zipcode of Miami, OH?[/INST]
 }
 </s><s>[INST]
 There's really not input here is there?[/INST]
-{}
+{
+    "error": "noop. Analyzing all of the tooling we have available, none fits the query."
+}
 </s><s>[INST]
 What day was January 10, 1993?[/INST]
 {
@@ -144,7 +148,7 @@ What day was January 10, 1993?[/INST]
     "parameters": {
         "day": 10,
         "month": 1,
-        "year": 1993,
+        "year": 1993
     },
     "notes": "User requested the weekday of a given date"
 }

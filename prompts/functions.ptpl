@@ -112,6 +112,7 @@ get_weekday(day: int, month: int, year: int) -> str:
         'Saturday'
         >>> get_weekday(day=15, month=11, year=2022)
         'Tuesday'
+------
 <</SYS>>
 What is the weather in 11202?[/INST]
 {

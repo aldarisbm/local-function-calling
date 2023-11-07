@@ -1,19 +1,18 @@
 def get_unicode_point(char: str) -> str:
     """
-    Returns a Unicode point as an integer for a given character.
+    Returns a Unicode point as str for a given character, char must be of len=1.
     Args:
         char (str): The character to lookup.
     Returns:
-        int: The Unicode point as an integer.
+        int: The Unicode point as a unicode string.
     Raises:
         ValueError: If the string is longer than 1 character
-
     Examples:
-        >>> get_unicode_point('A')
+        >>> get_unicode_point(char='A')
         'U+0041'
-        >>> get_unicode_point('€')
-        'U+20AC'
-        >>> get_unicode_point('😃')
+        >>> get_unicode_point(char='€s')
+        ValueError
+        >>> get_unicode_point(char='😃')
         'U+1F603'
     """
     if len(char) != 1:

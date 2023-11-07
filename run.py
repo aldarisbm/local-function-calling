@@ -11,10 +11,11 @@ import wandb
 from function_map import fns_map
 from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions, get_load_params
 from inference import inference
+from status import Status as St
 
 
 def run():
-    project = os.getenv('PROJECT', 'local_function_calling')
+    project = os.getenv('PROJECT', 'loc_fn_call')
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q8_0.gguf')
 
     tests: list[str] = [
@@ -38,7 +39,7 @@ def run():
             res, raw_output, t = inference(llm, inference_params, query)
             tok_s = raw_output["usage"]["completion_tokens"] / t
             generation_tracker = {
-                "is_valid": False,
+                "status": St.FAILURE.name,
                 "query": test_query,
                 "invoked_fn_output": None,
                 "generation": res if res != test_query else None,
@@ -95,7 +96,7 @@ def run():
             logging.info(f'Response: {resp}')
             generation_tracker.update(
                 {
-                    "is_valid": True,
+                    "status": St.SUCCESS.name,
                     "invoked_fn_output": str(resp),  # we should always string this bc it gets saved to wandb
                 })
             generations.append(generation_tracker)

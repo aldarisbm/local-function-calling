@@ -4,7 +4,7 @@ from importlib import metadata
 from pathlib import Path
 
 from jinja2 import Environment, Template, FileSystemLoader
-from llama_cpp import Llama
+from llama_cpp import Llama, LlamaGrammar
 
 
 def get_model_path() -> str:
@@ -28,19 +28,27 @@ def load_template(template: str) -> Template:
     return ptpl
 
 
-def get_inference_params() -> dict:
+def get_load_params() -> dict:
     model_path = get_model_path()
-    grammar_file = os.getenv('GRAMMAR_FILE', './grammars/json.gbnf')
-    inference_params = dict(
+    load_params = dict(
         model_path=model_path,
-        temperature=0,
+        n_gpu_layers=30,
         use_mlock=True,
-        grammar=grammar_file,
-        max_tokens=-1,
+        n_ctx=4096,
         n_batch=512,
         n_threads=4,
-        n_ctx=4096,
-        n_gpu_layers=30
+    )
+    return load_params
+
+
+def get_inference_params() -> dict:
+    grammar_file = os.getenv('GRAMMAR_FILE', './grammars/json.gbnf')
+    grammar = LlamaGrammar.from_file(grammar_file)
+
+    inference_params = dict(
+        temperature=0,
+        grammar=grammar,
+        max_tokens=-1,
     )
     return inference_params
 

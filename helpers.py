@@ -34,6 +34,7 @@ def get_load_params() -> dict:
         model_path=model_path,
         n_gpu_layers=30,
         use_mlock=True,
+        seed=42,
         n_ctx=4096,
         n_batch=512,
         n_threads=4,

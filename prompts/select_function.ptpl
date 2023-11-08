@@ -3,13 +3,16 @@
 Based on the query, you will choose two functions, A champion, and a runner up.
 
 Function signatures:
+-------------
 {% for fn_sign in fn_signatures %}
 {{ fn_sign }}
-{% endfor %}
+-------------
+{%- endfor %}
 <</SYS>>
 What is the zipcode of Miami, OH?[/INST]
-${few shot}
+ANSWER
 </s><s>[INST]
-
-{{ query }}
-[/INST]
+What is the zipcode of Miami, OH?[/INST]
+ANSWER
+</s><s>[INST]
+{{ query }}[/INST]

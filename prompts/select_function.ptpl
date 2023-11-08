@@ -1,20 +1,15 @@
 {# prompts/select_function.tptl #}
+[INST] <<SYS>>You're a function picker, you will be given a list of the signature of different functions.
+Based on the query, you will choose two functions, A champion, and a runner up.
 
-<s>[INST] You're an function picker, you will be given a list of function objects, keys being the name of a function, and the value
-a string of the signature. Based on the query, you will choose the top 3 most likely functions to use, and rank them 1, 2, and 3
-
-Query:
-{{ query }}
-
-Function Objects:
-
-[{% for key, value in functions.items() -%}
-    {"{{ key }}": "{{ value }}"},{% endfor %}]
-
-[INST]
+Function signatures:
+{% for fn_sign in fn_signatures %}
+{{ fn_sign }}
+{% endfor %}
+<</SYS>>
 What is the zipcode of Miami, OH?[/INST]
 ${few shot}
-</s>
-[INST]
+</s><s>[INST]
+
 {{ query }}
 [/INST]

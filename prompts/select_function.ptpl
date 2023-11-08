@@ -10,9 +10,27 @@ Function signatures:
 {%- endfor %}
 <</SYS>>
 What is the zipcode of Miami, OH?[/INST]
-ANSWER
+{
+    "champion": {
+        "name": "get_zipcode",
+        "notes": "get_zipcode should be able to answer the query at hand."
+    },
+    "runner_up": {
+        "name": "get_date",
+        "notes": "although get_date will not answer our query, among the provided functions it would be the runner up."
+    }
+}
 </s><s>[INST]
-What is the zipcode of Miami, OH?[/INST]
-ANSWER
+What is the unicode point of 🥴?[/INST]
+{
+    "champion": {
+        "name": "get_unicode_point",
+        "notes": "word for word, this seems like the best fit."
+    },
+    "runner_up": {
+        "name": "get_weekday",
+        "notes": "although get_weekday will not be able to answer our query, it is the closest one."
+    }
+}
 </s><s>[INST]
 {{ query }}[/INST]

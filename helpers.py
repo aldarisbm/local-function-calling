@@ -32,12 +32,12 @@ def get_load_params() -> dict:
     model_path = get_model_path()
     load_params = dict(
         model_path=model_path,
-        n_gpu_layers=30,
+        n_gpu_layers=-1,
+        seed=0,
         use_mlock=True,
-        seed=42,
         n_ctx=4096,
         n_batch=512,
-        n_threads=4,
+        verbose=False,
     )
     return load_params
 
@@ -50,7 +50,7 @@ def get_inference_params() -> dict:
         temperature=0,
         grammar=grammar,
         max_tokens=-1,
-        top_k=50
+        top_k=40,
     )
     return inference_params
 

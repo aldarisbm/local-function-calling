@@ -10,11 +10,12 @@ cx_key = os.getenv("CX_KEY")
 SEARCH_API_URL = os.getenv("SEARCH_API_URL", 'https://www.googleapis.com/customsearch/v1')
 
 
-def search_google(query: str, **kwargs: dict) -> list[dict]:
+def search_google(query: str, dry_run: bool = True, **kwargs: dict) -> list[dict]:
     """
     Returns the result from the Google Search API
     Args:
         query (str): The query to search for.
+        dry_run (bool): Whether we call the api or not.
         kwargs (dict): The keyword arguments to pass to the search API, this could be empty.
     Returns:
         list[dict]:  A list of python dictionaries containing the search results.
@@ -44,6 +45,10 @@ def search_google(query: str, **kwargs: dict) -> list[dict]:
     """
     if not search_api_key or not cx_key:
         raise Exception("search API key or CX key not set")
+    if dry_run:
+        return [dict(
+            state="success"
+        )]
     params = dict(
         key=search_api_key,
         cx=cx_key,

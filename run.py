@@ -1,13 +1,14 @@
 import json
 import logging
 import os
+import sys
 from json import JSONDecodeError
 
 import pandas as pd
+import wandb
 from jinja2 import Template
 from llama_cpp import Llama
 
-import wandb
 from function_map import fns_map
 from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions, get_load_params
 from inference import inference
@@ -15,15 +16,35 @@ from status import Status as St
 
 
 def run():
-    project = os.getenv('PROJECT', 'loc_fn_call')
+    project = os.getenv('PROJECT', 'local_function')
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q6_K.gguf')
 
-    tests: list[str] = [
+    fail_tests: list[str] = [
+        'this should fail bc nothing',
         'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+    ]
+    reg_test: list[str] = [
         'what is the date today?',
-        'What is the unicode point of the letter R?',
-        'What is the zipcode of Saint Louis, MO?',
-        'this should fail bc nothing'
+        'what is the unicode point of the letter R?',
+        'what is the zipcode of Saint Louis, MO?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
+        'this should fail bc nothing',
+        'can you check google for today\'s top news?',
     ]
 
     generations: list[dict] = []
@@ -33,7 +54,7 @@ def run():
     # we are putting this outside of the loop to not re-initialize this 3 times.
     llm: Llama = load_llm(load_params)
     for i in range(1):
-        for test_query in tests:
+        for test_query in fail_tests:
             ptpl: Template = load_template('functions')
             query: str = ptpl.render(query=test_query)
             res, raw_output, t = inference(llm, inference_params, query)
@@ -47,8 +68,9 @@ def run():
                 "error": None,
                 "model_name": model_name,
                 "tokens_sec": tok_s,
-                "load_params": load_params,
-                "inf_params": inference_params,
+                "inference_time": t,
+                "lp": load_params,
+                "ip": inference_params,
                 "pkg_v": get_pkgs_versions()
             }
             try:
@@ -65,7 +87,7 @@ def run():
                 continue
 
             if 'error' in fn:
-                logging.info(f"could not pick a function for: {test_query}, got error: {fn['error']}")
+                logging.info(f"could not pick a function for: {test_query}, got error: {fn}")
                 generation_tracker.update({
                     "error": fn['error']
                 })
@@ -93,7 +115,6 @@ def run():
                 logging.error(f"while calling the function with the generated parameters: {e}")
                 continue
             # if we made it here we assume we succeeded.
-            logging.info(f'Response: {resp}')
             generation_tracker.update(
                 {
                     "status": St.SUCCESS.name,
@@ -111,3 +132,4 @@ def run():
     # create a wandb run
     with wandb.init(project=project, job_type="inference", config=config):
         wandb.log({"preds_table": pred_table})
+    sys.exit(0)

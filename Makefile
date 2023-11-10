@@ -1,3 +1,3 @@
 
-update_deps:
+update-deps:
 	poetry update

@@ -5,10 +5,10 @@ import sys
 from json import JSONDecodeError
 
 import pandas as pd
-import wandb
 from jinja2 import Template
 from llama_cpp import Llama
 
+import wandb
 from function_map import fns_map
 from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions, get_load_params
 from inference import inference
@@ -54,7 +54,7 @@ def run():
     # we are putting this outside of the loop to not re-initialize this 3 times.
     llm: Llama = load_llm(load_params)
     for i in range(1):
-        for test_query in fail_tests:
+        for test_query in reg_test:
             ptpl: Template = load_template('functions')
             query: str = ptpl.render(query=test_query)
             res, raw_output, t = inference(llm, inference_params, query)

@@ -14,39 +14,12 @@ from helpers import load_template, load_llm, get_inference_params, get_pkgs_vers
     get_available_functions
 from inference import inference
 from status import Status as St
+from evals import fail
 
 
 def run():
     project = os.getenv('PROJECT', 'local_function')
     model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q6_K.gguf')
-
-    fail_tests: list[str] = [
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-    ]
-    reg_test: list[str] = [
-        'what is the date today?',
-        'what is the unicode point of the letter R?',
-        'what is the zipcode of Saint Louis, MO?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-    ]
 
     generations: list[dict] = []
     inference_params: dict = get_inference_params()
@@ -55,7 +28,7 @@ def run():
     # we are putting this outside of the loop to not re-initialize this every time.
     llm: Llama = load_llm(load_params)
     for i in range(1):
-        for test_query in fail_tests:
+        for test_query in fail.tests:
             with open('./data/set.json') as f:
                 few_shots = json.load(f)
             functions = get_available_functions()

@@ -1,0 +1,18 @@
+tests: list[str] = [
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+    'this should fail bc nothing',
+    'can you check google for today\'s top news?',
+]

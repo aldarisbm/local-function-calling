@@ -59,8 +59,7 @@ def get_inference_params() -> dict:
 
 
 def get_pkgs_versions() -> dict:
-    # we should keep track of important packages here, we do that in the project toml, but we won't be pushing that to
-    # wandb every run.
+    # we are adding most important packages here, they all get saved to wandb anyway.
     llama_cpp_version = metadata.version('llama-cpp-python')
 
     return dict(
@@ -69,13 +68,4 @@ def get_pkgs_versions() -> dict:
 
 
 def get_available_functions() -> list[dict]:
-    functions = []
-    for k, v in fns_map.items():
-        functions.append(
-            dict(
-                signature=signature(k),
-                docstring=v.__doc__
-            )
-        )
-
-    return functions
+    return [dict(signature=f"{k}{signature(v)}", docstring=v.__doc__) for k, v, in fns_map.items()]

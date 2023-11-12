@@ -55,14 +55,12 @@ def run():
     # we are putting this outside of the loop to not re-initialize this every time.
     llm: Llama = load_llm(load_params)
     for i in range(1):
-        for test_query in reg_test:
+        for test_query in fail_tests:
             with open('./data/set.json') as f:
                 few_shots = json.load(f)
             functions = get_available_functions()
             ptpl: Template = load_template('functions')
             query: str = ptpl.render(query=test_query, few_shots=few_shots, functions=functions)
-            print(query)
-            return
             res, raw_output, t = inference(llm, inference_params, query)
             tok_s = raw_output["usage"]["completion_tokens"] / t
             generation_tracker = {

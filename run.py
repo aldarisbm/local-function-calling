@@ -5,58 +5,28 @@ import sys
 from json import JSONDecodeError
 
 import pandas as pd
-import wandb
 from jinja2 import Template
 from llama_cpp import Llama
 
+import wandb
 from function_map import fns_map
-from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions, get_load_params
+from helpers import load_template, load_llm, get_pkgs_versions
 from inference import inference
 from status import Status as St
 
 
-def run():
-    project = os.getenv('PROJECT', 'local_function')
-    model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q6_K.gguf')
-
-    fail_tests: list[str] = [
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-    ]
-    reg_test: list[str] = [
-        'what is the date today?',
-        'what is the unicode point of the letter R?',
-        'what is the zipcode of Saint Louis, MO?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-        'this should fail bc nothing',
-        'can you check google for today\'s top news?',
-    ]
-
+def run(project: str, model_name: str, inference_params: dict, load_params: dict, iterations: int, tests: list[str],
+        available_functions: list[dict]):
     generations: list[dict] = []
-    inference_params: dict = get_inference_params()
-    load_params: dict = get_load_params()
     logging.debug(f'inference params: {inference_params}')
-    # we are putting this outside of the loop to not re-initialize this 3 times.
+    # we are putting this outside of the loop to not re-initialize this every time.
     llm: Llama = load_llm(load_params)
-    for i in range(1):
-        for test_query in fail_tests:
+    for i in range(iterations):
+        for test_query in tests:
+            with open('./data/set.json') as f:
+                few_shots = json.load(f)
             ptpl: Template = load_template('functions')
-            query: str = ptpl.render(query=test_query)
+            query: str = ptpl.render(query=test_query, few_shots=few_shots, functions=available_functions)
             res, raw_output, t = inference(llm, inference_params, query)
             tok_s = raw_output["usage"]["completion_tokens"] / t
             generation_tracker = {

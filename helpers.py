@@ -1,10 +1,13 @@
 import logging
 import os
 from importlib import metadata
+from inspect import signature
 from pathlib import Path
 
 from jinja2 import Environment, Template, FileSystemLoader
 from llama_cpp import Llama, LlamaGrammar
+
+from function_map import fns_map
 
 
 def get_model_path() -> str:
@@ -56,10 +59,13 @@ def get_inference_params() -> dict:
 
 
 def get_pkgs_versions() -> dict:
-    # we should keep track of important packages here, we do that in the project toml, but we won't be pushing that to
-    # wandb every run.
+    # we are adding most important packages here, they all get saved to wandb anyway.
     llama_cpp_version = metadata.version('llama-cpp-python')
 
     return dict(
         llama_cpp=llama_cpp_version
     )
+
+
+def get_available_functions() -> list[dict]:
+    return [dict(signature=f"{k}{signature(v)}", docstring=v.__doc__) for k, v, in fns_map.items()]

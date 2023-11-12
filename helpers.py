@@ -68,4 +68,4 @@ def get_pkgs_versions() -> dict:
 
 
 def get_available_functions() -> list[dict]:
-    return [dict(signature=f"{k}{signature(v)}", docstring=v.__doc__) for k, v, in fns_map.items()]
+    return [dict(fn_name=k, fn=v, signature=f"{k}{signature(v)}", docstring=v.__doc__) for k, v, in fns_map.items()]

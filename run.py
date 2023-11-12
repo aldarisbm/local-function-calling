@@ -9,14 +9,20 @@ from jinja2 import Template
 from llama_cpp import Llama
 
 import wandb
-from function_map import fns_map
 from helpers import load_template, load_llm, get_pkgs_versions
 from inference import inference
 from status import Status as St
 
 
-def run(project: str, model_name: str, inference_params: dict, load_params: dict, iterations: int, tests: list[str],
-        available_functions: list[dict]):
+def run(
+        project: str,
+        model_name: str,
+        inference_params: dict,
+        load_params: dict,
+        iterations: int,
+        tests: list[str],
+        available_functions: list[dict]
+):
     generations: list[dict] = []
     logging.debug(f'inference params: {inference_params}')
     # we are putting this outside of the loop to not re-initialize this every time.
@@ -75,7 +81,8 @@ def run(project: str, model_name: str, inference_params: dict, load_params: dict
                 continue
 
             try:
-                resp = fns_map[fn_name](**fn['parameters'] if 'parameters' in fn else {})
+                func = next(f['fn'] for f in available_functions if f["fn_name"] == fn_name)
+                resp = func(**fn['parameters'] if 'parameters' in fn else {})
             except Exception as e:
                 generation_tracker.update({
                     "error": f'calling function: {e}',

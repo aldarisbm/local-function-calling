@@ -5,6 +5,10 @@ Your outputs are consumed by another application, it's of the utmost importance 
 
 These are the functions you can use:
 ------
+{%- for fn in functions %}
+{{ fn.signature }}
+    {{ fn.docstring }}
+{%- endfor %}
 get_weather_forecast(zipcode: str)-> str:
     Returns the weather forecast for a given zipcode.
     Args:
@@ -114,47 +118,9 @@ get_weekday(day: int, month: int, year: int) -> str:
         'Tuesday'
 ------
 <</SYS>>
-What is the weather in 11202?[/INST]
-{
-    "function_name": "get_weather",
-    "parameters": {
-        "zipcode": "11202"
-    },
-    "thought": "While using get_weather, I'm sending ['zipcode'] as a parameter, because the function signature requires it.",
-    "notes": "User requested the weather for zipcode 11202. Analyzing all of the tooling we have available, getweather is the best fit."
-}
+{%- for set in few_shots %}
+{{ set.prompt }}[/INST]
+{{ set.response }}
 </s><s>[INST]
-Itsy bitsy spider[/INST]
-{
-    "error": "noop. Analyzing all of the tooling we have available, none fits the query."
-}
-</s><s>[INST]
-What is the zipcode of Miami, OH?[/INST]
-{
-    "function_name": "get_zipcode",
-    "parameters": {
-        "city": "Miami",
-        "state": "OH"
-    },
-    "thought": "While using get_zipcode, I'm sending ['city', 'state'] as a parameters, because the function signature requires it.",
-    "notes": "User requested a zipcode for Miami, OH. Analyzing all of the tooling we have available, get_zipcode is the best fit."
-}
-</s><s>[INST]
-There's really not input here is there?[/INST]
-{
-    "error": "noop. Analyzing all of the tooling we have available, none fits the query."
-}
-</s><s>[INST]
-What day was January 10, 1993?[/INST]
-{
-    "function_name": "get_weekday",
-    "parameters": {
-        "day": 10,
-        "month": 1,
-        "year": 1993
-    },
-    "thought": "While using get_weekday, I'm sending ['day', 'month', 'year'] as parameters, because the function signature requires it."
-    "notes": "User requested the weekday of a given date"
-}
-</s><s>[INST]
+{%- endfor %}
 {{ query }}[/INST]

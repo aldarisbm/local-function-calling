@@ -4,7 +4,7 @@ Based on the query, you will choose two functions, A champion, and a runner up.
 
 Function signatures:
 -------------
-{% for fn_sign in fn_signatures %}
+{%- for fn_sign in fn_signatures %}
 {{ fn_sign }}
 -------------
 {%- endfor %}

@@ -1,10 +1,13 @@
 import logging
 import os
 from importlib import metadata
+from inspect import signature
 from pathlib import Path
 
 from jinja2 import Environment, Template, FileSystemLoader
 from llama_cpp import Llama, LlamaGrammar
+
+from function_map import fns_map
 
 
 def get_model_path() -> str:
@@ -63,3 +66,16 @@ def get_pkgs_versions() -> dict:
     return dict(
         llama_cpp=llama_cpp_version
     )
+
+
+def get_available_functions() -> list[dict]:
+    functions = []
+    for k, v in fns_map.items():
+        functions.append(
+            dict(
+                signature=signature(k),
+                docstring=v.__doc__
+            )
+        )
+
+    return functions

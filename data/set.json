@@ -1,0 +1,22 @@
+[
+  {
+    "prompt": "What is the weather in 11202?",
+    "response": "{\n    \"function_name\": \"get_weather\",\n    \"parameters\": {\n        \"zipcode\": \"11202\"\n    },\n    \"thought\": \"While using get_weather, I'm sending ['zipcode'] as a parameter, because the function signature requires it.\",\n    \"notes\": \"User requested the weather for zipcode 11202. Analyzing all of the tooling we have available, getweather is the best fit.\"\n}"
+  },
+  {
+    "prompt": "Itsy bitsy spider",
+    "response": "{\n    \"error\": \"noop. Analyzing all of the tooling we have available, none fits the query.\"\n}"
+  },
+  {
+    "prompt": "What is the zipcode of Miami, OH?",
+    "response": "{\n    \"function_name\": \"get_zipcode\",\n    \"parameters\": {\n        \"city\": \"Miami\",\n        \"state\": \"OH\"\n    },\n    \"thought\": \"While using get_zipcode, I'm sending ['city', 'state'] as a parameters, because the function signature requires it.\",\n    \"notes\": \"User requested a zipcode for Miami, OH. Analyzing all of the tooling we have available, get_zipcode is the best fit.\"\n}"
+  },
+  {
+    "prompt": "There's really not input here is there?",
+    "response": "{\n    \"error\": \"noop. Analyzing all of the tooling we have available, none fits the query.\"\n}"
+  },
+  {
+    "prompt": "What day was January 10, 1993?",
+    "response": "{\n    \"function_name\": \"get_weekday\",\n    \"parameters\": {\n        \"day\": 10,\n        \"month\": 1,\n        \"year\": 1993\n    },\n    \"thought\": \"While using get_weekday, I'm sending ['day', 'month', 'year'] as parameters, because the function signature requires it.\"\n    \"notes\": \"User requested the weekday of a given date\"\n}"
+  }
+]

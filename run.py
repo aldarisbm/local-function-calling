@@ -10,7 +10,8 @@ from llama_cpp import Llama
 
 import wandb
 from function_map import fns_map
-from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions, get_load_params
+from helpers import load_template, load_llm, get_inference_params, get_pkgs_versions, get_load_params, \
+    get_available_functions
 from inference import inference
 from status import Status as St
 
@@ -51,12 +52,17 @@ def run():
     inference_params: dict = get_inference_params()
     load_params: dict = get_load_params()
     logging.debug(f'inference params: {inference_params}')
-    # we are putting this outside of the loop to not re-initialize this 3 times.
+    # we are putting this outside of the loop to not re-initialize this every time.
     llm: Llama = load_llm(load_params)
     for i in range(1):
         for test_query in reg_test:
+            with open('./data/set.json') as f:
+                few_shots = json.load(f)
+            functions = get_available_functions()
             ptpl: Template = load_template('functions')
-            query: str = ptpl.render(query=test_query)
+            query: str = ptpl.render(query=test_query, few_shots=few_shots, functions=functions)
+            print(query)
+            return
             res, raw_output, t = inference(llm, inference_params, query)
             tok_s = raw_output["usage"]["completion_tokens"] / t
             generation_tracker = {

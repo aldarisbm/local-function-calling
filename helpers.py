@@ -1,6 +1,5 @@
 import logging
 import os
-from importlib import metadata
 from inspect import signature
 from pathlib import Path
 
@@ -56,15 +55,6 @@ def get_inference_params() -> dict:
         top_k=40,
     )
     return inference_params
-
-
-def get_pkgs_versions() -> dict:
-    # we are adding most important packages here, they all get saved to wandb anyway.
-    llama_cpp_version = metadata.version('llama-cpp-python')
-
-    return dict(
-        llama_cpp=llama_cpp_version
-    )
 
 
 def get_available_functions() -> list[dict]:

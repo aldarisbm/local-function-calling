@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from evals import regular
 from helpers import get_load_params, get_inference_params, get_available_functions
-from run import run
+from runner import Runner
 
 load_dotenv()
 if os.getenv('DEBUG', 'false').lower() == 'true':
@@ -20,12 +20,5 @@ project = os.getenv('PROJECT', 'local_function')
 model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q6_K.gguf')
 available_functions = get_available_functions()
 
-run(
-    project,
-    model_name,
-    inference_params,
-    load_params,
-    iterations,
-    regular.tests,
-    available_functions
-)
+r = Runner(project, model_name, inference_params, load_params)
+r.run(regular.tests, available_functions, 1)

@@ -51,16 +51,16 @@ class Runner:
         generations: list[dict] = []
         logging.debug(f'inference params: {self.inference_params}')
         # we are putting this outside of the loop to not re-initialize this every time.
+        with open('./data/set_native.json') as f:
+            few_shots = json.load(f)
         for i in range(iterations):
             for q in evals:
-                with open('./data/set.json') as f:
-                    few_shots = json.load(f)
                 ptpl: Template = self.__load_template('functions')
                 query: str = ptpl.render(query=q, few_shots=few_shots, functions=available_functions)
                 res, raw_output, t = self.__inference(self.inference_params, query)
                 tok_s = raw_output["usage"]["completion_tokens"] / t
                 generation_tracker = {
-                    "status": st.FAILURE.name,
+                    "status": st.FAILURE.name,  # defaulting to error, might want to change this
                     "query": q,
                     "invoked_fn_output": None,
                     "generation": res if res != q else None,
@@ -75,7 +75,7 @@ class Runner:
                 }
                 try:
                     stripped_res = res.strip()
-                    fn = json.loads(stripped_res)
+                    res = json.loads(stripped_res)
                 except JSONDecodeError as e:
                     generation_tracker.update({
                         "error": f"decoding json: {e}",
@@ -86,15 +86,24 @@ class Runner:
                     logging.error(f"got response: {res}")
                     continue
 
-                if 'error' in fn:
-                    logging.info(f"could not pick a function for: {q}, got error: {fn}")
+                if 'error' in res:
                     generation_tracker.update({
-                        "error": fn['error']
+                        "error": res['error']
                     })
+
+                    logging.info(f"could not pick a function for: {q}, got error: {res}")
+                    if res['error'] == "noop":
+                        generation_tracker.update({
+                            "status": st.SUCCESS.name
+                        })
+
                     generations.append(generation_tracker)
                     continue
-                logging.info(f'got output: {fn}')
-                fn_name = fn['function_name'] if 'function_name' in fn else None
+                logging.info(f'got output: {res}')
+
+                # extracting function and arguments
+                fn_name = res['function_name'] if 'function_name' in res else None
+                fn_args = res['arguments'] if 'arguments' in res else {}
 
                 if not fn_name:
                     generation_tracker.update({
@@ -106,7 +115,7 @@ class Runner:
 
                 try:
                     func = next(f['fn'] for f in available_functions if f["fn_name"] == fn_name)
-                    resp = func(**fn['parameters'] if 'parameters' in fn else {})
+                    func_res = func(**fn_args)
                 except Exception as e:
                     generation_tracker.update({
                         "error": f'calling function: {e}',
@@ -119,7 +128,7 @@ class Runner:
                 generation_tracker.update(
                     {
                         "status": st.SUCCESS.name,
-                        "invoked_fn_output": str(resp),  # we should always string this bc it gets saved to wandb
+                        "invoked_fn_output": str(func_res),  # we should always string this bc it gets saved to wandb
                     })
                 generations.append(generation_tracker)
 

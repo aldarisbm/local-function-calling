@@ -6,8 +6,8 @@
       "arguments": {
         "zipcode": "11202"
       },
-      "thought": "While using get_weather, I'm using ['zipcode'] as a parameter, because the function signature requires it.",
-      "notes": "User requested the weather for zipcode 11202. 'getweather' is the best fit."
+      "thought": "I need to use the get_weather tool with the zip code as an argument",
+      "notes": "The user is asking for the weather in 11202"
     }
   },
   {
@@ -25,8 +25,8 @@
         "city": "Miami",
         "state": "OH"
       },
-      "thought": "While using get_zipcode, I'm using ['city', 'state'] as parameters, because the function signature requires it.",
-      "notes": "User requested a zipcode for Miami, OH. 'get_zipcode' is the best fit."
+      "thought": "I need to use get_zipcode with city and state as arguments",
+      "notes": "The user is asking for the zipcode of Miami, OH"
     }
   },
   {
@@ -45,8 +45,8 @@
         "month": 1,
         "year": 1993
       },
-      "thought": "While using get_weekday, I'm using ['day', 'month', 'year'] as parameters, because the function signature requires it.",
-      "notes": "User requested the weekday of a given date. get_weekday is the best fit"
+      "thought": "I need to use get_weekday with day, month, and year as arguments",
+      "notes": "The user is asking for the weekday of a specific date"
     }
   }
 ]

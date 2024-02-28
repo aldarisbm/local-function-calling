@@ -15,9 +15,9 @@ from status import Status as st
 
 
 class Runner:
-    def __init__(self, wandb_project: str, model_name: str, inference_params: dict, load_params: dict):
+    def __init__(self, wandb_project: str, inference_params: dict, load_params: dict):
         self.wandb_project = wandb_project
-        self.model_name = model_name
+        self.model_name = os.path.basename(load_params['model_path'])
         self.inference_params = inference_params
         self.load_params = load_params
         self.llm = self.__load_llm()
@@ -47,12 +47,10 @@ class Runner:
             llama_cpp=llama_cpp_version
         )
 
-    def run(self, evals: list[str], available_functions: list[dict], iterations: int):
+    def run(self, evals: list[str], available_functions: list[dict], few_shots: list[dict], iterations: int):
+        logging.debug(f'Running: {self.model_name}')
         generations: list[dict] = []
         logging.debug(f'inference params: {self.inference_params}')
-        # we are putting this outside of the loop to not re-initialize this every time.
-        with open('./data/set_native.json') as f:
-            few_shots = json.load(f)
         for i in range(iterations):
             for q in evals:
                 ptpl: Template = self.__load_template('functions')

@@ -1,5 +1,7 @@
+import json
 import logging
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -13,12 +15,24 @@ if os.getenv('DEBUG', 'false').lower() == 'true':
 else:
     logging.basicConfig(level=logging.INFO)
 
+project = os.getenv('PROJECT', 'local_function')
+
 inference_params = get_inference_params()
 load_params = get_load_params()
 iterations = 1
-project = os.getenv('PROJECT', 'local_function')
-model_name = os.getenv('MODEL_NAME', 'airoboros-m-7b-3.1.2.Q6_K.gguf')
 available_functions = get_available_functions()
 
-r = Runner(project, model_name, inference_params, load_params)
-r.run(regular.tests, available_functions, 1)
+model_path = os.getenv(
+    'MODEL_PATH',
+    f'{Path.home()}/Development/llama.cpp/models/7B/dolphin-2.5-mixtral-8x7b.Q5_K_M.gguf'
+)
+
+load_params.update({
+    "model_path": model_path
+})
+
+with open('data/few_shots.json') as f:
+    few_shots = json.load(f)
+
+r = Runner(project, inference_params, load_params)
+r.run(regular.tests, available_functions, few_shots, 1)

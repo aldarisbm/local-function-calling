@@ -35,7 +35,7 @@ class Runner:
     @staticmethod
     def __load_template(template: str) -> Template:
         environment: Environment = Environment(loader=FileSystemLoader("prompts/"))
-        ptpl: Template = environment.get_template(f"{template}.ptpl")
+        ptpl: Template = environment.get_template(f"{template}.j2")
         return ptpl
 
     @staticmethod

@@ -478,12 +478,12 @@ rapidfuzz = ">=3.1.0,<4.0.0"
 
 [[package]]
 name = "llama-cpp-python"
-version = "0.2.63"
+version = "0.2.52"
 description = "Python bindings for the llama.cpp library"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "llama_cpp_python-0.2.63.tar.gz", hash = "sha256:26425fd77a8c463bac709c1d4b8194d7c4ddca3d795f82b2ae7ff4246f2f5539"},
+    {file = "llama_cpp_python-0.2.52.tar.gz", hash = "sha256:cc3f670ea5b315547396b0bbc108fcc9602d19b8af858e03c4c0fae385fb9a04"},
 ]
 
 [package.dependencies]
@@ -495,7 +495,7 @@ typing-extensions = ">=4.5.0"
 [package.extras]
 all = ["llama_cpp_python[dev,server,test]"]
 dev = ["black (>=23.3.0)", "httpx (>=0.24.1)", "mkdocs (>=1.4.3)", "mkdocs-material (>=9.1.18)", "mkdocstrings[python] (>=0.22.0)", "pytest (>=7.4.0)", "twine (>=4.0.2)"]
-server = ["PyYAML (>=5.1)", "fastapi (>=0.100.0)", "pydantic-settings (>=2.0.1)", "sse-starlette (>=1.6.1)", "starlette-context (>=0.3.6,<0.4)", "uvicorn (>=0.22.0)"]
+server = ["fastapi (>=0.100.0)", "pydantic-settings (>=2.0.1)", "sse-starlette (>=1.6.1)", "starlette-context (>=0.3.6,<0.4)", "uvicorn (>=0.22.0)"]
 test = ["httpx (>=0.24.1)", "pytest (>=7.4.0)", "scipy (>=1.10)"]
 
 [[package]]
@@ -1406,4 +1406,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.9"
-content-hash = "813670aa17ff373b98fd7fb77de5e7d2bd0af6db3a8bd420f3be02aae6e2802f"
+content-hash = "64d41e755eee5741dac71828fbd68a9d63d1f605b9d91c23d829b316ae2fa2f6"

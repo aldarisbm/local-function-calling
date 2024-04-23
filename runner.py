@@ -32,12 +32,15 @@ class Runner:
         self.llm = self._get_llama()
 
     def _get_llama(self):
-        logging.debug(f"using load params: {self.load_params}")
+        logging.debug(f"Using load params: {self.load_params}")
         return Llama(**self.load_params)
 
     def __inference(self, inference_params: dict, q: str) -> (str, any, float):
+        logging.debug(f"Starting inference...")
         t0 = time.perf_counter()
+        logging.debug(f"inference params: {inference_params}")
         raw_output = self.llm(q, **inference_params)
+        logging.debug(f"done with inference..")
         answer = raw_output["choices"][0]["text"]
         return answer, raw_output, time.perf_counter() - t0
 
@@ -63,8 +66,10 @@ class Runner:
         ptpl: Template = self.__load_template('functions')
         for q in evals:
             query: str = ptpl.render(query=q, few_shots=few_shots, functions=self.available_functions)
+            logging.debug(f"Starting inference.\nQuery: {q}")
             res, raw_output, t = self.__inference(self.inference_params, query)
             tok_s = raw_output["usage"]["completion_tokens"] / t
+            logging.debug(f"Tokens per second: {tok_s}")
 
             generation_tracker = {
                 "status": st.FAILURE.name,  # defaulting to error, might want to change this

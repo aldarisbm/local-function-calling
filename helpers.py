@@ -31,7 +31,7 @@ def get_load_params() -> dict:
         use_mlock=True,
         n_ctx=4096,
         n_batch=512,
-        verbose=False,
+        verbose=True,
         model_path=model_path,
     )
     return load_params

@@ -1,5 +1,6 @@
 import os
 from inspect import signature
+from pathlib import Path
 
 from jinja2 import Environment, Template, FileSystemLoader
 from llama_cpp import Llama, LlamaGrammar
@@ -19,6 +20,11 @@ def load_template(template: str) -> Template:
 
 
 def get_load_params() -> dict:
+    model_path = os.getenv(
+        'MODEL_PATH',
+        f'{Path.home()}/Development/llama.cpp/models/7B/dolphin-2.5-mixtral-8x7b.Q5_K_M.gguf'
+    )
+
     load_params = dict(
         n_gpu_layers=-1,
         seed=0,
@@ -26,6 +32,7 @@ def get_load_params() -> dict:
         n_ctx=4096,
         n_batch=512,
         verbose=False,
+        model_path=model_path,
     )
     return load_params
 

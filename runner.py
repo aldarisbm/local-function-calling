@@ -15,7 +15,7 @@ from helpers import get_inference_params, get_load_params
 from status import Status as st
 
 
-class Runner:
+class FunctionCaller:
     wandb_project: str
     inference_params: dict
     load_params: dict
@@ -59,7 +59,7 @@ class Runner:
             llama_cpp=llama_cpp_version
         )
 
-    def run(self, evals: list[str], few_shots: list[dict]):
+    def call(self, evals: list[str], few_shots: list[dict]):
         logging.debug(f'Running: {self.model_name}')
         generations: list[dict] = []
         logging.debug(f'inference params: {self.inference_params}')
@@ -126,7 +126,7 @@ class Runner:
                 continue
 
             try:
-                func = next(f['fn'] for f in available_functions if f["fn_name"] == fn_name)
+                func = next(f['fn'] for f in self.available_functions if f["fn_name"] == fn_name)
                 func_res = func(**fn_args)
             except Exception as e:
                 generation_tracker.update({

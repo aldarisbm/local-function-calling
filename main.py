@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from evals import regular
 from helpers import get_available_functions
-from runner import Runner
+from runner import FunctionCaller
 
 load_dotenv()
 if os.getenv('DEBUG', 'false').lower() == 'true':
@@ -20,5 +20,5 @@ available_functions = get_available_functions()
 with open('data/few_shots.json') as f:
     few_shots = json.load(f)
 
-r = Runner(wandb_project, available_functions)
-r.run(regular.tests, few_shots)
+caller = FunctionCaller(wandb_project, available_functions)
+caller.call(regular.tests, few_shots)

@@ -5,8 +5,8 @@ import os
 from dotenv import load_dotenv
 
 from evals import regular
+from function_caller import FunctionCaller
 from helpers import get_available_functions
-from runner import FunctionCaller
 
 load_dotenv()
 if os.getenv('DEBUG', 'false').lower() == 'true':

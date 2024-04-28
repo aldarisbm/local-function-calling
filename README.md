@@ -18,22 +18,10 @@ Make sure you have the following prerequisites installed:
 
 ### Installation
 
-Clone the repository to your local machine:
-
-```bash
-git clone https://github.com/aldarisbm/local-function-calling.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd local-function-calling
-```
-
 Install the required dependencies with Poetry:
 
 ```bash
-poetry install
+make install
 ```
 
 Create a `.env` file in the root of the project and add the following environment variables:
@@ -41,12 +29,14 @@ Create a `.env` file in the root of the project and add the following environmen
 ```dotenv
 SEARCH_API_KEY=your_google_search_api_key
 CX_KEY=your_google_cx_key
+
+MODEL_PATH=/full/path/to/your/model
 ```
 
-Replace `your_google_search_api_key` and `your_google_cx_key` with your
-actual [Google Custom Search API](https://developers.google.com/custom-search/v1/introduction) keys.
+Instructions on how to get a Google Search Api and Google CX
+Key: [HERE](https://developers.google.com/custom-search/v1/introduction)
 
-These are needed for using google queries.
+These are only needed if you need to do google queries
 
 ### Usage
 

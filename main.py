@@ -11,8 +11,10 @@ from helpers import get_available_functions
 load_dotenv()
 if os.getenv('DEBUG', 'false').lower() == 'true':
     logging.basicConfig(level=logging.DEBUG)
+    logging.debug('Debug mode enabled')
 else:
     logging.basicConfig(level=logging.INFO)
+    logging.debug('Info mode enabled')
 
 wandb_project = os.getenv('WANDB_PROJECT', 'local_function')
 available_functions = get_available_functions()

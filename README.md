@@ -40,7 +40,17 @@ These are only needed if you need to do google queries
 
 ### Usage
 
-WIP
+To onboard a new function to be used by the LLM, you need to:
+
+- Add a function in the function folder
+    - The functions need to be added in a specific way, with declared type hints,
+      and examples such as [this example](functions/location.py)
+- Add it to this `function/__init__` file [here](functions/__init__.py)
+- You might want to add a few shot prompt example for your function in the [data/few_shots.json](data/few_shots.json)
+  file.
+- Our sample queries for our sample functions are at [evals/regular.py](evals/regular.py) but for the `caller.call` all
+  you need
+  is to add a list of queries.
 
 ## License
 

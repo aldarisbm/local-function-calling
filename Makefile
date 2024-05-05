@@ -2,10 +2,10 @@ default: help
 
 .PHONY: run run-debug update-deps help install
 
-run: # Runs in info logging mode
+run: # Runs application
 	poetry run python main.py
 
-run-debug: # Runs in debug loggin mode
+run-debug: # Runs in debug logging mode
 	DEBUG=true poetry run python main.py
 
 update-deps: # Update Poetry dependencies

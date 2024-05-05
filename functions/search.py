@@ -63,14 +63,10 @@ def search_google(query: str, dry_run: bool = True, **kwargs: dict) -> list[dict
     items = json.loads(res.text)['items']
     # we are deleting fields we don't need for our purposes.
     # maybe parameterizing this could be a good idea.
+    keys_to_delete = ['kind', 'pagemap', 'displayLink', 'htmlSnippet', 'htmlTitle', 'htmlFormattedUrl', 'formattedUrl']
     for item in items:
-        del item['kind']
-        del item['pagemap']
-        del item['displayLink']
-        del item['htmlSnippet']
-        del item['htmlTitle']
-        del item['htmlFormattedUrl']
-        del item['formattedUrl']
+        for key in keys_to_delete:
+            del item[key]
         if 'cacheId' in item:
             del item['cacheId']
     return items

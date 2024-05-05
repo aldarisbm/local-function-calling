@@ -1,6 +1,6 @@
+import logging
 import os
 from inspect import signature
-from pathlib import Path
 
 from jinja2 import Environment, Template, FileSystemLoader
 from llama_cpp import Llama, LlamaGrammar
@@ -20,10 +20,10 @@ def load_template(template: str) -> Template:
 
 
 def get_load_params() -> dict:
-    model_path = os.getenv(
-        'MODEL_PATH',
-        f'{Path.home()}/Development/llama.cpp/models/7B/dolphin-2.5-mixtral-8x7b.Q5_K_M.gguf'
-    )
+    model_name = os.getenv('MODEL', None)
+    models_path = os.getenv('MODELS_PATH', None)
+    model_path = f"{models_path}/{model_name}"
+    logging.info(f'loading {model_path}...')
 
     load_params = dict(
         n_gpu_layers=-1,
@@ -51,4 +51,4 @@ def get_inference_params() -> dict:
 
 
 def get_available_functions() -> list[dict]:
-    return [dict(fn_name=k, fn=v, signature=f"{k}{signature(v)}", docstring=v.__doc__) for k, v, in fns_map.items()]
+    return [dict(fn_name=k, fn=v, signature=f"{k}{signature(v)}", docstring=v.__doc__) for k, v in fns_map.items()]
